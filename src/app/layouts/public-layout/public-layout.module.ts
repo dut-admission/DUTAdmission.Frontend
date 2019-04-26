@@ -9,13 +9,15 @@ import {PublicFooterComponent} from '../../shared/public-footer/public-footer.co
 import {PublicNavbarComponent} from '../../shared/public-navbar/public-navbar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
+import {InstructionComponent} from '../../pages/public-page/instruction/instruction.component';
 
 @NgModule({
   declarations: [
     LandingComponent,
     ProfileComponent,
     PublicFooterComponent,
-    PublicNavbarComponent
+    PublicNavbarComponent,
+    InstructionComponent
   ],
   imports: [
     CommonModule,

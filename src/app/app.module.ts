@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import {PublicLayoutModule} from './layouts/public-layout/public-layout.module';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
+import { ListOfNewsComponent } from './pages/public-page/list-of-news/list-of-news.component';
 
 
 
@@ -34,7 +35,8 @@ import {HeadroomModule} from '@ctrl/ngx-headroom';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PublicLayoutComponent
+    PublicLayoutComponent,
+    ListOfNewsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
