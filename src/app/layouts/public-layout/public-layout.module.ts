@@ -10,6 +10,9 @@ import {PublicNavbarComponent} from '../../shared/public-navbar/public-navbar.co
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
 import {InstructionComponent} from '../../pages/public-page/instruction/instruction.component';
+import {ListOfNewsComponent} from '../../pages/public-page/news/list-of-news/list-of-news.component';
+import {NewsDetailComponent} from '../../pages/public-page/news/news-detail/news-detail.component';
+import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import {InstructionComponent} from '../../pages/public-page/instruction/instruct
     ProfileComponent,
     PublicFooterComponent,
     PublicNavbarComponent,
-    InstructionComponent
+    InstructionComponent,
+    ListOfNewsComponent,
+    NewsDetailComponent,
+    AboutUsComponent,
   ],
   imports: [
     CommonModule,

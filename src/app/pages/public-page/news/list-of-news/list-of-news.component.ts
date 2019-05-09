@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-of-news.component.scss']
 })
 export class ListOfNewsComponent implements OnInit {
-
+  page = 2;
+  page1 = 3;
   constructor() { }
 
   ngOnInit() {
