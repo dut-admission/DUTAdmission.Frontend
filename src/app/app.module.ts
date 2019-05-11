@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import {PublicLayoutModule} from './layouts/public-layout/public-layout.module';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
+import {HttpErrorInterceptor} from './_core/http-error.interceptor';
 
 
 
@@ -36,7 +37,13 @@ import {HeadroomModule} from '@ctrl/ngx-headroom';
     AuthLayoutComponent,
     PublicLayoutComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
