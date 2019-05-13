@@ -6,6 +6,7 @@
   padding-top: 12px;
   text-transform: uppercase;
 }
+
 .single-footer-widget > span {
   display: block;
   margin-bottom: 11px;
@@ -15,7 +16,8 @@
   display: block;
   margin-bottom: 11px;
 }
-.single-footer-widget > a i{
+
+.single-footer-widget > a i {
   font-size: 18px;
   width: 30px;
 }
@@ -23,4 +25,12 @@
 .single-footer-widget > span i {
   font-size: 18px;
   width: 30px;
+}
+
+a.fast-link {
+  color: #525f7f;
+}
+
+a.fast-link:hover {
+  text-decoration: underline;
 }
