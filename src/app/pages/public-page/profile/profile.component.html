@@ -1,11 +1,3 @@
-<ng-template #customLoadingTemplate>
-  <div class="custom-class">
-    <h3>
-      Loading...
-    </h3>
-  </div>
-</ng-template>
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
 <main class="profile-page">
   <section class="section-profile-cover section-shaped my-0">
     <!-- Circles background -->
@@ -20,12 +12,13 @@
     </div>
     <!-- SVG separator -->
     <div class="separator separator-bottom separator-skew">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+           xmlns="http://www.w3.org/2000/svg">
         <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
       </svg>
     </div>
   </section>
-  <section class="section">
+  <section class="section" *ngIf="profile">
     <div class="container">
       <div class="card card-profile shadow mt--300">
         <div class="px-4">
@@ -40,39 +33,521 @@
             <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
               <div class="card-profile-actions py-4 mt-lg-0">
                 <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
+                <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Cài đặt tài khoản</a>
               </div>
             </div>
             <div class="col-lg-4 order-lg-1">
-              <div class="card-profile-stats d-flex justify-content-center">
-                <div>
-                  <span class="heading">22</span>
-                  <span class="description">Friends</span>
-                </div>
-                <div>
-                  <span class="heading">10</span>
-                  <span class="description">Photos</span>
-                </div>
-                <div>
-                  <span class="heading">89</span>
-                  <span class="description">Comments</span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="text-center mt-5">
-            <h3>Jessica Jones
-              <span class="font-weight-light">, 27</span>
+            <h3>{{profile.LastName + ' ' + profile.FirstName}}
+              <span class="font-weight-light">, {{profile.PersonalInfo.DateOfBirth | date: 'dd/MM/yyyy'}}</span>
             </h3>
-            <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Bucharest, Romania</div>
-            <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-            <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
+            <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{profile.PersonalInfo.Address}}</div>
+            <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>{{profile.UniversityInfo.ClassName}}
+              , {{profile.UniversityInfo.ProgramName}}
+            </div>
+            <div><i class="ni education_hat mr-2"></i>{{profile.UniversityInfo.DepartmentName}}</div>
           </div>
           <div class="mt-5 py-5 border-top text-center">
             <div class="row justify-content-center">
-              <div class="col-lg-9">
-                <p>An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
-                <a href="javascript:void(0)">Show more</a>
+              <div class="col-lg-12">
+                <ngb-tabset #t="ngbTabset" [justify]="'center'" class="custom-tab-content flex-column flex-md-row"
+                            type="pills" activeId="personal-info">
+                  <ngb-tab id="personal-info">
+                    <ng-template ngbTabTitle>
+                      <i class="ni ni-cloud-upload-96 mr-2"></i> Thông tin cá nhân
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <form>
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-first-name">Họ</label>
+                                <input type="text" id="input-first-name" class="form-control form-control-alternative"
+                                       placeholder="Họ" value="{{profile.LastName}}" disabled="disabled">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-last-name">Tên</label>
+                                <input type="text" id="input-last-name" class="form-control form-control-alternative"
+                                       placeholder="Tên" value="{{profile.FirstName}}" disabled="disabled">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="sex-selection">Giới tính</label>
+                                <select id="sex-selection" class="form-control form-control-alternative"
+                                        name="SexSelection" [(ngModel)]="profile.PersonalInfo.Sex">
+                                  <option value="true">Nam</option>
+                                  <option value="false">Nữ</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group" [ngClass]="{'focused':focus2===true}">
+                                <label class="form-control-label" for="date-of-birth">Ngày sinh</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                  </div>
+                                  <input id="date-of-birth" class="form-control datepicker" placeholder="Select date"
+                                         name="DateOfBirth"
+                                         [(ngModel)]="profile.PersonalInfo.DateOfBirth" ngbDatepicker
+                                         #d1="ngbDatepicker" (click)="d1.toggle()"
+                                         (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                         (select)="onDateSelection($event)" autocomplete="off"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-place-of-birth">Nơi sinh</label>
+                                <input type="text" id="input-place-of-birth"
+                                       class="form-control form-control-alternative"
+                                       placeholder="Nơi sinh" [(ngModel)]="profile.PersonalInfo.PlaceOfBirth">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="national-selection">Quốc tịch</label>
+                                <select class="form-control form-control-alternative" id="national-selection"
+                                        name="Nationality" [(ngModel)]="profile.PersonalInfo.NationalityId">
+                                  <option *ngFor="let nationality of library.nationality_list"
+                                          [value]="nationality.id">{{nationality.name}}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="EthnicId">Dân tộc</label>
+                                <select class="form-control form-control-alternative" id="EthnicId" name="EthnicId"
+                                        [(ngModel)]="profile.PersonalInfo.EthnicId">
+                                  <option *ngFor="let ethnic of library.ethnic_list"
+                                          [value]="ethnic.id">{{ethnic.name}}</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="ReligionId">Tôn giáo</label>
+                                <select class="form-control form-control-alternative" id="ReligionId" name="ReligionId"
+                                        [(ngModel)]="profile.PersonalInfo.ReligionId">
+                                  <option *ngFor="let item of library.religion_list"
+                                          [value]="item.id">{{item.name}}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="identity-number">Số chứng minh nhân dân</label>
+                                <input type="text" id="identity-number" class="form-control form-control-alternative"
+                                       placeholder="Số CMND" value="{{profile.IdentityNumber}}" disabled="disabled">
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="DateOfIssue">Ngày cấp</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                  </div>
+                                  <input class="form-control datepicker" placeholder="Select date" name="DateOfIssue"
+                                         id="DateOfIssue"
+                                         [(ngModel)]="profile.PersonalInfo.DateOfIssue" ngbDatepicker
+                                         #d2="ngbDatepicker" (click)="d2.toggle()"
+                                         (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                         (select)="onDateSelection($event)" autocomplete="off"/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-place-of-issue">Nơi cấp</label>
+                                <input type="text" id="input-place-of-issue"
+                                       name="PlaceOfIssue"
+                                       class="form-control form-control-alternative"
+                                       placeholder="Nơi cấp" [(ngModel)]="profile.PersonalInfo.PlaceOfIssue">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-residence">Hộ khẩu thường trú</label>
+                                <input id="input-residence" class="form-control form-control-alternative"
+                                       placeholder="Hộ khẩu thường trú"
+                                       name="PermanentResidence"
+                                       type="text" [(ngModel)]="profile.PersonalInfo.PermanentResidence">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-address">Nơi ở hiện tại</label>
+                                <input id="input-address" class="form-control form-control-alternative"
+                                       placeholder="Nơi ở hiện tại" name="Address"
+                                       type="text" [(ngModel)]="profile.PersonalInfo.Address">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-phone-number">Số điện thoại</label>
+                                <input type="text" id="input-phone-number" class="form-control form-control-alternative"
+                                       placeholder="Số điện thoại" name="PhoneNumber"
+                                       [(ngModel)]="profile.PersonalInfo.PhoneNumber">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-email">Email</label>
+                                <input type="text" id="input-email" class="form-control form-control-alternative"
+                                       placeholder="Email" [(ngModel)]="profile.PersonalInfo.Email" name="Email">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-4"/>
+                        <button class="btn btn-outline-primary" (click)="t.select('family-info')">Next</button>
+                      </form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab id="family-info">
+                    <ng-template ngbTabTitle>
+                      <i class="ni ni-bell-55 mr-2"></i> Thông tin nhân thân
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <form>
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="CircumstanceTypeId">Hoàn cảnh gia đình</label>
+                                <select class="form-control form-control-alternative" name="CircumstanceTypeId"
+                                        id="CircumstanceTypeId" [(ngModel)]="profile.CircumstanceTypeId">
+                                  <option *ngFor="let item of library.circumstance_type_list"
+                                          [value]="item.id">{{item.name}}</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <h6 class="heading-small text-muted mb-4">Các thành viên gia đình</h6>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                  <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col">Quan hệ</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Năm sinh</th>
+                                    <th scope="col">Quốc tịch</th>
+                                    <th scope="col">Dân tộc</th>
+                                    <th scope="col">Tôn giáo</th>
+                                    <th scope="col">Nghề nghiệp</th>
+                                    <th scope="col">Nơi làm việc</th>
+                                    <th scope="col">Số điện thoại</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let member of profile.FamilyMembers">
+                                    <td>
+                                      {{member.RelationName}}
+                                    </td>
+                                    <td>
+                                      {{member.Name}}
+                                    </td>
+                                    <td>
+                                      {{member.YearOfBirth}}
+                                    </td>
+                                    <td>
+                                      {{member.NationalityName}}
+                                    </td>
+                                    <td>
+                                      {{member.EthnicName}}
+                                    </td>
+                                    <td>
+                                      {{member.ReligionName}}
+                                    </td>
+                                    <td>
+                                      {{member.CareerTypeName}}
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                      {{member.PhoneNumber}}
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <button class="btn btn-success justify-content-start">Thêm thành viên mới</button>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-4"/>
+                        <button class="btn btn-outline-primary" (click)="t.select('high-school-info')">Next</button>
+                      </form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab id="high-school-info">
+                    <ng-template ngbTabTitle>
+                      <i class="ni ni-calendar-grid-58 mr-2"></i> Thành tích học tập, rèn luyện
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <form>
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-high-school-name">Tên trường THPT</label>
+                                <input type="text" id="input-high-school-name"
+                                       class="form-control form-control-alternative" name="HighSchoolName"
+                                       placeholder="Tên trường THPT"
+                                       [(ngModel)]="profile.HightSchoolInfo.HightSchoolName">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="YouthJoining">Đã gia nhập Đoàn</label>
+                                <select class="form-control form-control-alternative" name="YouthJoining"
+                                        id="YouthJoining">
+                                  <option>Đã gia nhập</option>
+                                  <option>Chưa gia nhập</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="youth-info" *ngIf="profile.HightSchoolInfo.YouthGroupInfo">
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="YouthJoiningDate">Ngày vào Đoàn</label>
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                    </div>
+                                    <input class="form-control datepicker" placeholder="Select date"
+                                           name="YouthJoiningDate" id="YouthJoiningDate"
+                                           [(ngModel)]="profile.HightSchoolInfo.YouthGroupInfo.DateOfJoiningYouthGroup"
+                                           ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()"
+                                           (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                           (select)="onDateSelection($event)" autocomplete="off"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label class="form-control-label" for="input-place-of-joining">Nơi vào Đoàn</label>
+                                  <input type="text" id="input-place-of-joining"
+                                         class="form-control form-control-alternative" name="YouthJoiningPlace"
+                                         placeholder="Nơi vào Đoàn"
+                                         [(ngModel)]="profile.HightSchoolInfo.YouthGroupInfo.PlaceOfJoinYouthGroup">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="my-4"/>
+                          <h6 class="heading-small text-muted mb-4">Kết quả học tập rèn luyện</h6>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                  <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col">Lớp</th>
+                                    <th scope="col">Xếp loại học lực</th>
+                                    <th scope="col">Xếp loại hạnh kiểm</th>
+                                    <th scope="col">Điểm trung bình</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let result of profile.HightSchoolInfo.HighSchoolResults">
+                                    <td>
+                                      {{result.HightSchoolYear}}
+                                    </td>
+                                    <td>
+                                      {{result.LearningAbilityName}}
+                                    </td>
+                                    <td>
+                                      {{result.ConductTypeName}}
+                                    </td>
+                                    <td>
+                                      {{result.GPAScore}}
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <button class="btn btn-success justify-content-start">Thêm mới</button>
+                            </div>
+                          </div>
+                          <hr class="my-4"/>
+                          <h6 class="heading-small text-muted mb-4">Năng khiếu</h6>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <div _ngcontent-c9="" class="custom-control custom-checkbox mb-3">
+                                  <input _ngcontent-c9="" checked="" class="custom-control-input" id="customCheck2"
+                                         type="checkbox">
+                                  <label _ngcontent-c9="" class="custom-control-label" for="customCheck2"><span
+                                    _ngcontent-c9="">Hát</span></label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="my-4"/>
+                          <h6 class="heading-small text-muted mb-4">Thành tựu</h6>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                  <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col">Kỳ thi</th>
+                                    <th scope="col">Cấp</th>
+                                    <th scope="col">Giải thưởng</th>
+                                    <th scope="col">Mổ tả chi tiết</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let achievement of profile.HightSchoolInfo.Achievements">
+                                    <td>
+                                      {{achievement.AchievementTypeName}}
+                                    </td>
+                                    <td>
+                                      {{achievement.AchievementLevelName}}
+                                    </td>
+                                    <td>
+                                      {{achievement.AchievementPrizeName}}
+                                    </td>
+                                    <td>
+                                      {{achievement.Description}}
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <button class="btn btn-success justify-content-start">Thêm mới</button>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-4"/>
+                        <button class="btn btn-outline-primary" (click)="t.select('university-info')">Next</button>
+                      </form>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab id="university-info">
+                    <ng-template ngbTabTitle>
+                      <i class="ni ni-calendar-grid-58 mr-2"></i> Thông tin nhập học
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <form>
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="ClassName">Lớp</label>
+                                <input type="text" id="ClassName" name="ClassName"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Lớp" value="{{profile.UniversityInfo.ClassName}}">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="DepartmentName">Ngành</label>
+                                <input type="text" id="DepartmentName" name="DepartmentName"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Ngành" value="{{profile.UniversityInfo.DepartmentName}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="FacultyName">Khoa</label>
+                                <input type="text" id="FacultyName" name="FacultyName"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Khoa" value="{{profile.UniversityInfo.FacultyName}}">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-first-name">Chương trình</label>
+                                <input type="text" id="ProgramName" name="ProgramName"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Chương trình" value="{{profile.UniversityInfo.ProgramName}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="EnrollmentAreaId">Khu vực tuyển sinh</label>
+                                <input type="text" id="EnrollmentAreaId" name="EnrollmentAreaId"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Khu vực tuyển sinh"
+                                       value="{{profile.UniversityInfo.EnrollmentAreaName}}">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="ElectionId">Đối tượng tuyển sinh</label>
+                                <input type="text" id="ElectionId" name="ElectionId"
+                                       class="form-control form-control-alternative" disabled="disabled"
+                                       placeholder="Đối tượng tuyển sinh"
+                                       value="{{profile.UniversityInfo.ElectionName}}">
+                              </div>
+                            </div>
+                          </div>
+                          <!--
+                          <h6 class="heading-small text-muted mb-4">Kết quả thi tuyển đại học</h6>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                  <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col">Môn</th>
+                                    <th scope="col">Điểm</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                    <td>
+                                      Toán
+                                    </td>
+                                    <td>
+                                      10
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <button class="btn btn-success justify-content-start">Thêm mới</button>
+                            </div>
+                          </div>
+                          -->
+                        </div>
+                        <hr class="my-4"/>
+                        <button class="btn btn-outline-primary">Save</button>
+                      </form>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
               </div>
             </div>
           </div>

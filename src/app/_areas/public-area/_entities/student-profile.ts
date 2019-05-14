@@ -23,22 +23,28 @@ export class UniversityInfo {
   DepartmentName: string;
   FacultyName: string;
   ProgramName: string;
-  EnrollmentAreaId: number;
-  ElectionId: number;
+  EnrollmentAreaName: string;
+  ElectionName: string;
   UniversityExamResults: UniversityExamResult[];
 }
 
 export class HighSchoolResult {
   HightSchoolYearId: number;
+  HightSchoolYear: number;
   ConductTypeId: number;
+  ConductTypeName: string;
   LearningAbilityId: number;
+  LearningAbilityName: string;
   GPAScore: number;
 }
 
 export class Achievement {
   AchievementTypeId: number;
+  AchievementTypeName: string;
   AchievementLevelId: number;
+  AchievementLevelName: string;
   AchievementPrizeId: number;
+  AchievementPrizeName: string;
   Description: string;
 }
 
@@ -52,12 +58,18 @@ export class HightSchoolInfo {
 }
 
 export class FamilyMember {
+  Name: string;
   RelationId: number;
+  RelationName: string;
   YearOfBirth: number;
   CareerTypeId: number;
+  CareerTypeName: string;
   EthnicId: number;
+  EthnicName: string;
   ReligionId: number;
+  ReligionName: string;
   NationalityId: number;
+  NationalityName: string;
   PhoneNumber: string;
   Email: string;
   Address: string;
@@ -74,10 +86,12 @@ export class StudentProfile {
   UniversityInfo: UniversityInfo;
   HightSchoolInfo: HightSchoolInfo;
   FamilyMembers: FamilyMember[];
+
   constructor() {
     this.Avatar = '../../../../assets/img/theme/team-4-800x800.jpg';
   }
 }
+
 export class YouthGroupInfo {
   DateOfJoiningYouthGroup: Date;
   PlaceOfJoinYouthGroup: string;

@@ -54,4 +54,16 @@ export class PublicNavbarComponent implements OnInit {
       return false;
     }
   }
+
+  getPath() {
+    return this.router.url;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
 }

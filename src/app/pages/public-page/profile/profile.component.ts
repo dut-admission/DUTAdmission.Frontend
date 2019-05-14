@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentProfileService} from '../../../_areas/public-area/_services/student-profile.service';
 import {StudentProfile} from '../../../_areas/public-area/_entities/student-profile';
+import {ProfileLibrary} from '../../../_areas/public-area/_entities/profile-library';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,7 @@ import {StudentProfile} from '../../../_areas/public-area/_entities/student-prof
 
 export class ProfileComponent implements OnInit {
   profile: StudentProfile;
+  library: ProfileLibrary;
   loading = true;
 
   constructor(private profileService: StudentProfileService) {
@@ -17,11 +19,20 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+
+    this.profileService.getProfileLibrary().subscribe(
+      value => {
+        this.library = value;
+        console.log(this.library);
+      },
+      error => {
+      }
+    );
+
     this.profileService.getStudentProfile().subscribe(
       value => {
         this.loading = false;
         this.profile = value;
-        console.log(value);
       },
       error => {
         this.loading = false;
