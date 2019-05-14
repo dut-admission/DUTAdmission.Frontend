@@ -74,6 +74,9 @@ export class StudentProfile {
   UniversityInfo: UniversityInfo;
   HightSchoolInfo: HightSchoolInfo;
   FamilyMembers: FamilyMember[];
+  constructor() {
+    this.Avatar = '../../../../assets/img/theme/team-4-800x800.jpg';
+  }
 }
 export class YouthGroupInfo {
   DateOfJoiningYouthGroup: Date;

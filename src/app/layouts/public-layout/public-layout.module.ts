@@ -13,6 +13,7 @@ import {InstructionComponent} from '../../pages/public-page/instruction/instruct
 import {ListOfNewsComponent} from '../../pages/public-page/news/list-of-news/list-of-news.component';
 import {NewsDetailComponent} from '../../pages/public-page/news/news-detail/news-detail.component';
 import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.component';
+import {NgxLoadingModule} from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.compon
     FormsModule,
     NgbModule,
     HeadroomModule,
+    NgxLoadingModule,
     // NgbModule
   ],
   exports: [
