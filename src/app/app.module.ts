@@ -16,6 +16,8 @@ import { ComponentsModule } from './components/components.module';
 import {PublicLayoutModule} from './layouts/public-layout/public-layout.module';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
 import {HttpErrorInterceptor} from './_core/http-error.interceptor';
+import {ToastrModule} from 'ngx-toastr';
+import {NgxLoadingModule} from 'ngx-loading';
 
 
 
@@ -29,7 +31,9 @@ import {HttpErrorInterceptor} from './_core/http-error.interceptor';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    PublicLayoutModule
+    PublicLayoutModule,
+    ToastrModule.forRoot(),
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [
     AppComponent,

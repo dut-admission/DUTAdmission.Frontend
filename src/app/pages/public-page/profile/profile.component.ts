@@ -10,15 +10,23 @@ import {StudentProfile} from '../../../_areas/public-area/_entities/student-prof
 
 export class ProfileComponent implements OnInit {
   profile: StudentProfile;
+  loading = true;
+
   constructor(private profileService: StudentProfileService) {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.profileService.getStudentProfile().subscribe(
       value => {
+        this.loading = false;
+        this.profile = value;
         console.log(value);
       },
-      error => console.log(error)
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
     );
   }
 
