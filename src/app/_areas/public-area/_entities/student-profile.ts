@@ -14,6 +14,7 @@ export class PersonalInfo {
 }
 
 export class UniversityExamResult {
+  Id: number;
   SubjectName: string;
   Score: number;
 }
@@ -29,6 +30,7 @@ export class UniversityInfo {
 }
 
 export class HighSchoolResult {
+  Id: number;
   HightSchoolYearId: number;
   HightSchoolYear: number;
   ConductTypeId: number;
@@ -39,6 +41,7 @@ export class HighSchoolResult {
 }
 
 export class Achievement {
+  Id: number;
   AchievementTypeId: number;
   AchievementTypeName: string;
   AchievementLevelId: number;
@@ -58,6 +61,7 @@ export class HightSchoolInfo {
 }
 
 export class FamilyMember {
+  Id: number;
   Name: string;
   RelationId: number;
   RelationName: string;
