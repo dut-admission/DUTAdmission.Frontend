@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from '../../../_areas/auth-area/_services/login.service';
+import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 import {ForgetPassword} from '../../../_areas/auth-area/_entities/forget-password';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class ForgetPasswordComponent implements OnInit {
   forgetPassword: ForgetPassword;
 
-  constructor(private loginService: LoginService,
+  constructor(private authenticationService: AuthenticationService,
               private toastr: ToastrService,
               private router: Router) {
     this.forgetPassword = new ForgetPassword();
@@ -23,7 +23,7 @@ export class ForgetPasswordComponent implements OnInit {
 
   getNewPassword() {
     if (this.isValidated()) {
-      this.loginService.getPassword(this.forgetPassword).subscribe(
+      this.authenticationService.getPassword(this.forgetPassword).subscribe(
         value => {
           this.toastr.success('Mật khẩu mới của bạn đã được gửi về email của bạn.', 'Lấy mật khẩu mới thành công', {
             timeOut: 4000,

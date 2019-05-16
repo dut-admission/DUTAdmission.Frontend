@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd, NavigationStart} from '@angular/router';
 import {Location, PopStateEvent} from '@angular/common';
+import {AuthenticationService} from '../../_areas/auth-area/_services/authentication.service';
 
 @Component({
   selector: 'app-public-navbar',
@@ -12,7 +13,9 @@ export class PublicNavbarComponent implements OnInit {
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
 
-  constructor(public location: Location, private router: Router) {
+  constructor(public location: Location,
+              private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -60,10 +63,10 @@ export class PublicNavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.authenticationService.logout();
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return this.authenticationService.currentUserValue.access_token;
   }
 }

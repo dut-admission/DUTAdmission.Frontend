@@ -95,12 +95,13 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                   </div>
-                                  <input id="date-of-birth" class="form-control datepicker" placeholder="Select date"
-                                         name="DateOfBirth"
-                                         [(ngModel)]="profile.PersonalInfo.DateOfBirth" ngbDatepicker
+                                  <input id="date-of-birth" name="Birthday" class="form-control datepicker"
+                                         placeholder="Select date"
+                                         ngbDatepicker [(ngModel)]="profile.PersonalInfo.DateOfBirth"
                                          #d1="ngbDatepicker" (click)="d1.toggle()"
                                          (focus)="focus2=true" (blur)="focus2=false" type="text"
-                                         (select)="onDateSelection($event)" autocomplete="off"/>
+                                         (select)="onDateSelection($event)" autocomplete="off"
+                                         [ngModelOptions]="{standalone: true}"/>
                                 </div>
                               </div>
                             </div>
@@ -109,7 +110,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label class="form-control-label" for="input-place-of-birth">Nơi sinh</label>
-                                <input type="text" id="input-place-of-birth"
+                                <input type="text" id="input-place-of-birth" name="PlaceOfBirth"
                                        class="form-control form-control-alternative"
                                        placeholder="Nơi sinh" [(ngModel)]="profile.PersonalInfo.PlaceOfBirth">
                               </div>
@@ -248,17 +249,13 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
+                                <table class="table align-items-center table-bordered table-hover">
                                   <thead class="thead-light">
                                   <tr>
                                     <th scope="col">Quan hệ</th>
                                     <th scope="col">Họ và tên</th>
                                     <th scope="col">Năm sinh</th>
-                                    <th scope="col">Quốc tịch</th>
-                                    <th scope="col">Dân tộc</th>
-                                    <th scope="col">Tôn giáo</th>
                                     <th scope="col">Nghề nghiệp</th>
-                                    <th scope="col">Nơi làm việc</th>
                                     <th scope="col">Số điện thoại</th>
                                   </tr>
                                   </thead>
@@ -268,24 +265,13 @@
                                       {{member.RelationName}}
                                     </td>
                                     <td>
-                                      {{member.Name}}
+                                      <a class="btn-link" (click)="open(newFamilyMember, '', '', member)">{{member.Name}}</a>
                                     </td>
                                     <td>
                                       {{member.YearOfBirth}}
                                     </td>
                                     <td>
-                                      {{member.NationalityName}}
-                                    </td>
-                                    <td>
-                                      {{member.EthnicName}}
-                                    </td>
-                                    <td>
-                                      {{member.ReligionName}}
-                                    </td>
-                                    <td>
                                       {{member.CareerTypeName}}
-                                    </td>
-                                    <td>
                                     </td>
                                     <td>
                                       {{member.PhoneNumber}}
@@ -294,7 +280,139 @@
                                   </tbody>
                                 </table>
                               </div>
-                              <button class="btn btn-success justify-content-start">Thêm thành viên mới</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <button class="btn btn-block btn-default" (click)="open(newFamilyMember, '', '', newMember)">
+                                Thêm mới
+                              </button>
+                              <ng-template #newFamilyMember let-c="close" let-d="dismiss">
+                                <div class="modal-content">
+                                  <div class="modal-body p-0">
+                                    <div class="card bg-secondary shadow border-0">
+                                      <div class="card-header bg-white pb-0">
+                                        <div class="text-muted text-center">
+                                          <h3>Thêm thành viên mới</h3>
+                                        </div>
+                                      </div>
+                                      <div class="card-body px-lg-5 py-lg-5">
+                                        <div class="text-center text-muted mb-4">
+                                          <small>Vui lòng điền đầy đủ các thông tin dưới đây</small>
+                                        </div>
+                                        <form role="form">
+                                          <div class="row">
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberName">Họ và tên</label>
+                                                <input type="text" id="MemberName"
+                                                       class="form-control form-control-alternative" name="MemberName"
+                                                       placeholder="Họ và tên" [(ngModel)]="newMember.Name">
+                                              </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberRelation">Quan hệ</label>
+                                                <select class="form-control form-control-alternative"
+                                                        name="MemberRelation"
+                                                        id="MemberRelation" [(ngModel)]="newMember.RelationId">
+                                                  <option *ngFor="let item of library.relation_type_list"
+                                                          [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberYearOfBirth">Năm
+                                                  sinh</label>
+                                                <input type="number" id="MemberYearOfBirth"
+                                                       class="form-control form-control-alternative"
+                                                       name="MemberYearOfBirth"
+                                                       placeholder="Năm sinh" [(ngModel)]="newMember.YearOfBirth">
+                                              </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberNationality">Quốc
+                                                  tịch</label>
+                                                <select class="form-control form-control-alternative"
+                                                        name="MemberNationality"
+                                                        id="MemberNationality" [(ngModel)]="newMember.NationalityId">
+                                                  <option *ngFor="let item of library.nationality_list"
+                                                          [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberEthnic">Dân tộc</label>
+                                                <select class="form-control form-control-alternative"
+                                                        name="MemberEthnic"
+                                                        id="MemberEthnic" [(ngModel)]="newMember.EthnicId">
+                                                  <option *ngFor="let item of library.ethnic_list"
+                                                          [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberReligion">Tôn giáo</label>
+                                                <select class="form-control form-control-alternative"
+                                                        name="MemberReligion"
+                                                        id="MemberReligion" [(ngModel)]="newMember.ReligionId">
+                                                  <option *ngFor="let item of library.religion_list"
+                                                          [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberCareerType">Nghề nghiệp</label>
+                                                <select class="form-control form-control-alternative"
+                                                        name="MemberCareerType"
+                                                        id="MemberCareerType" [(ngModel)]="newMember.CareerTypeId">
+                                                  <option *ngFor="let item of library.career_type_list"
+                                                          [value]="item.id">{{item.name}}</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberPhoneNumber">Số điện thoại</label>
+                                                <input class="form-control form-control-alternative"
+                                                        name="MemberPhoneNumber" type="text"
+                                                        id="MemberPhoneNumber" [(ngModel)]="newMember.PhoneNumber"/>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-lg-12">
+                                              <div class="form-group">
+                                                <label class="form-control-label" for="MemberAddress">Địa chỉ</label>
+                                                <input class="form-control form-control-alternative"
+                                                       name="MemberAddress" type="text"
+                                                       id="MemberAddress" [(ngModel)]="newMember.Address"/>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="text-center">
+                                            <button type="button" class="btn btn-primary my-4" (click)="saveFamilyMember()">Lưu lại</button>
+                                            <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
+                                                    (click)="c('Close click')">Close
+                                            </button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-template>
                             </div>
                           </div>
                         </div>
@@ -325,8 +443,8 @@
                                 <label class="form-control-label" for="YouthJoining">Đã gia nhập Đoàn</label>
                                 <select class="form-control form-control-alternative" name="YouthJoining"
                                         id="YouthJoining">
-                                  <option>Đã gia nhập</option>
-                                  <option>Chưa gia nhập</option>
+                                  <option value="true">Đã gia nhập</option>
+                                  <option value="false">Chưa gia nhập</option>
                                 </select>
                               </div>
                             </div>

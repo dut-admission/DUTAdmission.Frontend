@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {LoginService} from '../../../_areas/auth-area/_services/login.service';
+import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 import {LoginInfo} from '../../../_areas/auth-area/_entities/login-info';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   remembered: boolean;
 
   constructor(private router: Router,
-              private loginService: LoginService,
+              private authenticationService: AuthenticationService,
               private toastr: ToastrService) {
     this.initRememberPassword();
   }
@@ -34,16 +34,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   login(): void {
     if (this.isValidated()) {
       this.loading = true;
-      this.loginService.login(this.loginInfo).subscribe(
+      this.authenticationService.login(this.loginInfo).subscribe(
         value => {
           this.loading = false;
           this.saveLoginInfoToLocal();
-          localStorage.setItem('token', value['access_token']);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/home']);
         },
         error => {
           this.loading = false;
-          this.notifyErrorMessage(error['error']['Message']);
+          console.log(error);
+          this.notifyErrorMessage(error['error']);
         }
       );
     }

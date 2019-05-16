@@ -77,6 +77,20 @@ export class FamilyMember {
   PhoneNumber: string;
   Email: string;
   Address: string;
+
+  constructor() {
+    this.Id = 0;
+    this.Name = '';
+    this.RelationId = 1;
+    this.YearOfBirth = 1980;
+    this.CareerTypeId = 1;
+    this.EthnicId = 1;
+    this.ReligionId = 1;
+    this.NationalityId = 1;
+    this.PhoneNumber = '';
+    this.Email = '';
+    this.Address = '';
+  }
 }
 
 export class StudentProfile {
