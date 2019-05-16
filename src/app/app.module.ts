@@ -18,6 +18,7 @@ import {HeadroomModule} from '@ctrl/ngx-headroom';
 import {HttpErrorInterceptor} from './_core/http-error.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxLoadingModule} from 'ngx-loading';
+import {JwtInterceptor} from './_core/jwt.interceptor';
 
 
 
@@ -46,7 +47,13 @@ import {NgxLoadingModule} from 'ngx-loading';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+
   ],
   bootstrap: [AppComponent]
 })

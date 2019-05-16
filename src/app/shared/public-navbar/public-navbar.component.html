@@ -50,13 +50,39 @@
             <span class="nav-link-inner--text">Liên hệ</span>
           </a>
         </li>
-        <li class="nav-item d-none d-lg-block ml-lg-4">
+        <li class="nav-item d-none d-lg-block ml-lg-4" *ngIf="(getPath()!=='/login') && !authenticationService.currentUserValue">
           <a [routerLink]="['/login']" class="btn btn-neutral btn-icon">
             <span class="btn-inner--icon">
               <i class="fa fa-user-circle mr-2"></i>
             </span>
             <span class="nav-link-inner--text">Đăng nhập</span>
           </a>
+        </li>
+        <li class="nav-item" ngbDropdown placement="bottom-right" *ngIf="authenticationService.currentUserValue">
+          <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+            <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder" src="assets/img/theme/team-4-800x800.jpg">
+            </span>
+              <div class="media-body ml-2 d-none d-lg-block">
+                <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+              </div>
+            </div>
+          </a>
+          <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+            <div class=" dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Welcome!</h6>
+            </div>
+            <a routerLinkActive="active" [routerLink]="['/profile']" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>Thông tin cá nhân</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a (click)="logout()" class="dropdown-item">
+              <i class="ni ni-user-run"></i>
+              <span>Đăng xuất</span>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
