@@ -40,7 +40,7 @@ import {JwtInterceptor} from './_core/jwt.interceptor';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PublicLayoutComponent
+    PublicLayoutComponent,
   ],
   providers: [
     {

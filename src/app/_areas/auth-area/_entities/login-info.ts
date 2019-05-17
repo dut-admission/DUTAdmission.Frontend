@@ -1,9 +1,9 @@
 export class LoginInfo {
-  UserName: string;
+  username: string;
   Password: string;
 
   constructor(username: string, password: string) {
     this.Password = password;
-    this.UserName = username;
+    this.username = username;
   }
 }

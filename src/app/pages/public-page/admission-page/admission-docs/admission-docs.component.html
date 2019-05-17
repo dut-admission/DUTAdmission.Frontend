@@ -1,0 +1,53 @@
+<div class="px-4">
+  <div class="text-center mt-5">
+    <h3>
+      Tài liệu cần tải lên
+    </h3>
+  </div>
+  <div class="row">
+    <div class="col-md-12"></div>
+  </div>
+  <hr class="my-4"/>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="table-responsive">
+        <table class="table align-items-center table-bordered table-hover">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Tên tài liệu</th>
+            <th scope="col">Liên kết</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Bắt buộc/Không bắt buộc</th>
+            <th scope="col">Ghi chú</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="documents">
+          <tr *ngFor="let doc of documents">
+            <td>
+              {{doc.DocumentTypeName}}
+            </td>
+            <td>
+              <a class="btn-link" href="{{doc.Url}}" >{{doc.DocumentTypeName}}</a>
+            </td>
+            <td>
+              {{doc.StatusName}}
+            </td>
+            <td>
+              {{doc.IsRequired}}
+            </td>
+            <td>
+              {{doc.Name}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5 py-5 border-top text-center">
+    <div class="row justify-content-center">
+      <button class="btn btn-outline-primary" (click)="onLoadDocument()">Load</button>
+      <button class="btn btn-outline-primary" routerLink="/admission/tuition">Next</button>
+    </div>
+  </div>
+</div>
