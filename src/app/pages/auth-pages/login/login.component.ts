@@ -17,11 +17,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private toastr: ToastrService) {
-    this.initRememberPassword();
   }
 
   initRememberPassword() {
-    const username = localStorage.getItem('UserName');
+    const username = localStorage.getItem('username');
     const password = localStorage.getItem('Password');
     if (username !== null && password !== null) {
       this.loginInfo = new LoginInfo(username, atob(password));
@@ -51,20 +50,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   saveLoginInfoToLocal() {
     if (this.remembered === true) {
-      localStorage.setItem('UserName', this.loginInfo.UserName);
+      localStorage.setItem('username', this.loginInfo.username);
       localStorage.setItem('Password', btoa(this.loginInfo.Password));
     } else {
-      localStorage.removeItem('UserName');
+      localStorage.removeItem('username');
       localStorage.removeItem('Password');
     }
   }
 
   ngOnInit() {
-
+    this.initRememberPassword();
   }
 
   isValidated(): boolean {
-    return this.isNotEmptyString(this.loginInfo.UserName) && this.isNotEmptyString(this.loginInfo.Password);
+    return this.isNotEmptyString(this.loginInfo.username) && this.isNotEmptyString(this.loginInfo.Password);
   }
 
   private isNotEmptyString(text: String) {
