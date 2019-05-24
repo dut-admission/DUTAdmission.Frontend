@@ -1,0 +1,86 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow border-0">
+            <div class="card-header">
+              <h4 class="card-title">Bộ lọc</h4>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Nhóm tài khoản</label>
+                      <select class="form-control">
+                        <option>Nhân viên phòng tổ chức hành chính</option>
+                        <option>Nhân viên phòng công tác sinh viên</option>
+                        <option>Nhân viên phòng đào tạo</option>
+                        <option>Sinh viên</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Danh sách quyền</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-bordered">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Tên màn hình/Chức năng</th>
+              <th scope="col">Mô tả chức năng</th>
+              <th scope="col">Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let screen of screens">
+            <tr>
+              <th scope="colgroup" rowspan="3">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="text-uppercase font-weight-bold">{{screen.Name}}</span>
+                  </div>
+                </div>
+              </th>
+            </tr>
+            <tr *ngFor="let permission of screen.Permissions">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 ml-lg-3 text-sm">{{permission.FunctionName}}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{permission.FunctionDescription}}
+              </td>
+              <td>
+                <label class="custom-toggle">
+                  <input type="checkbox" [(ngModel)]="permission.IsActived" (change)="onPermissionChang(permission)">
+                  <span class="custom-toggle-slider rounded-circle"></span>
+                </label>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
