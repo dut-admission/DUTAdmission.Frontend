@@ -1,0 +1,340 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow border-0">
+            <div class="card-header">
+              <h4 class="card-title">Bộ lọc</h4>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Tên sinh viên</label>
+                      <input type="text" class="form-control" placeholder="Tên sinh viên" value="Trinh Minh An">
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Loại giấy tờ</label>
+                      <select class="form-control">
+                        <option>Đơn nhập học</option>
+                        <option>Giấy khai sinh</option>
+                        <option>Bằng tốt nghiệp cấp 3</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Chương trình</label>
+                      <select class="form-control">
+                        <option>Tiên tiến ECE</option>
+                        <option>Việt Pháp PFIEV</option>
+                        <option>Chất lượng cao CLC</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Ngành</label>
+                      <select class="form-control">
+                        <option>Tự động hóa</option>
+                        <option>Điện dân dụng</option>
+                        <option>Điện công nghiệp</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Lớp</label>
+                      <select class="form-control">
+                        <option>14T1</option>
+                        <option>14T2</option>
+                        <option>14T3</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Tình trạng</label>
+                      <select class="form-control">
+                        <option>Chờ phê duyệt</option>
+                        <option>Đã phê duyệt</option>
+                        <option>Không chấp thuận</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group group-function">
+                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
+                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
+                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
+                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Danh sách giấy tờ</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Tên sinh viên</th>
+              <th scope="col">Số CMND</th>
+              <th scope="col">Lớp</th>
+              <th scope="col">Tên loại giấy tờ</th>
+              <th scope="col">Yêu cầu</th>
+              <th scope="col">Tình trạng</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of documents">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{document.FirstName + ' ' + document.LastName}}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{document.IdentityNumber}}
+              </td>
+              <td>
+                {{document.ClassName}}
+              </td>
+              <td>
+                {{document.DocumentTypeName}}
+              </td>
+              <td>
+                <span class="badge badge-dot" *ngIf="document.IsRequired; else NotRequired">
+                    <i class="bg-danger"></i> Bắt buộc
+                  </span>
+                <ng-template #NotRequired>
+                  <span class="badge badge-dot">
+                    <i class="bg-success"></i> Không bắt buộc
+                  </span>
+                </ng-template>
+              </td>
+              <td>
+                <select class="form-control">
+                  <option>Chờ phê duyệt</option>
+                  <option>Đã phê duyệt</option>
+                  <option>Không chập nhận</option>
+                </select>
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="javascript:void(0)"
+                       (click)="onOpenPreviewModal(previewDocument, document)">Chi tiết tài liệu</a>
+                    <a class="dropdown-item" href="javascript:void(0)"
+                       (click)="onOpenPreviewModal(previewDocument, document)">Xem tài liệu</a>
+                    <a class="dropdown-item" href="javascript:void(0)"
+                       (click)="onOpenResponseModal(responseMessage, document)">Tạo phản hồi</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--
+        <ng-template #documentDetail let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Thông tin sinh viên</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <form role="form">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="FirstName">Họ và tên</label>
+                          <input type="text" id="FirstName"
+                                 class="form-control form-control-alternative" name="FirstName"
+                                 placeholder="Họ" [(ngModel)]="group.FirstName">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="LastName">Tên</label>
+                          <input type="text" id="LastName"
+                                 class="form-control form-control-alternative" name="LastName"
+                                 placeholder="Tên" [(ngModel)]="group.LastName">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="IdentityNumber">Số CMND</label>
+                          <input type="text" id="IdentityNumber"
+                                 class="form-control form-control-alternative" name="IdentityNumber"
+                                 placeholder="Số chứng minh nhân dân" [(ngModel)]="group.IdentityNumber">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="DateOfBirth">Ngày sinh</label>
+                          <input type="text" id="DateOfBirth"
+                                 class="form-control form-control-alternative" name="DateOfBirth"
+                                 placeholder="Ngày sinh" [(ngModel)]="group.DateOfBirth">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="ClassId">Lớp</label>
+                          <select class="form-control form-control-alternative"
+                                  name="ClassId"
+                                  id="ClassId" [(ngModel)]="group.ClassId">
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="DepartmentId">Ngành</label>
+                          <select class="form-control form-control-alternative"
+                                  name="DepartmentId"
+                                  id="DepartmentId" [(ngModel)]="group.DepartmentId">
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="PhoneNumber">Số điện thoại</label>
+                          <input class="form-control form-control-alternative"
+                                 name="PhoneNumber" type="text"
+                                 id="PhoneNumber" [(ngModel)]="group.PhoneNumber"/>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="Email">Số điện thoại</label>
+                          <input class="form-control form-control-alternative"
+                                 name="Email" type="text"
+                                 id="Email" [(ngModel)]="group.Email"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                          <label class="form-control-label" for="Address">Địa chỉ</label>
+                          <input class="form-control form-control-alternative"
+                                 name="Address" type="text"
+                                 id="Address" [(ngModel)]="group.Address"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="button" class="btn btn-primary my-4" >Lưu lại</button>
+                      <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
+                              (click)="c('Close click')">Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        -->
+        <ng-template #previewDocument let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Xem trước tài liệu</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <iframe [src]="newDocument.Url | safe" width="100%" height="800"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #responseMessage let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Phản hồi về tài liệu này</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <textarea class="form-control" [(ngModel)]="newDocument.ResponseMessage"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
