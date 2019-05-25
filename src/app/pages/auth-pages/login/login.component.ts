@@ -1,8 +1,9 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 import {LoginInfo} from '../../../_areas/auth-area/_entities/login-info';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {SharedService} from '../../../_core/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,13 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loading = false;
   loginInfo: LoginInfo;
   remembered: boolean;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private sharedService: SharedService) {
   }
 
   initRememberPassword() {
@@ -31,18 +32,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
+    this.sharedService.emitChange(true);
     if (this.isValidated()) {
-      this.loading = true;
       this.authenticationService.login(this.loginInfo).subscribe(
         value => {
-          this.loading = false;
+          this.sharedService.emitChange(false);
           this.saveLoginInfoToLocal();
           this.router.navigate(['/home']);
         },
         error => {
-          this.loading = false;
+          this.sharedService.emitChange(false);
           console.log(error);
-          this.notifyErrorMessage(error['error']);
+          this.sharedService.notifyError(error['error']);
         }
       );
     }

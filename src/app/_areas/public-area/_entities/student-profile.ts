@@ -38,6 +38,14 @@ export class HighSchoolResult {
   LearningAbilityId: number;
   LearningAbilityName: string;
   GPAScore: number;
+
+  constructor() {
+    this.Id = 0;
+    this.HightSchoolYearId = 1;
+    this.ConductTypeId = 1;
+    this.LearningAbilityId = 1;
+    this.GPAScore = 0;
+  }
 }
 
 export class Achievement {
@@ -49,6 +57,14 @@ export class Achievement {
   AchievementPrizeId: number;
   AchievementPrizeName: string;
   Description: string;
+
+  constructor() {
+    this.Description = '';
+    this.AchievementPrizeId = 1;
+    this.AchievementLevelId = 1;
+    this.AchievementTypeId = 1;
+  }
+
 }
 
 export class HightSchoolInfo {
