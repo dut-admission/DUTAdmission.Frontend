@@ -320,6 +320,7 @@
                                   <th scope="col">Năm sinh</th>
                                   <th scope="col">Nghề nghiệp</th>
                                   <th scope="col">Số điện thoại</th>
+                                  <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -328,8 +329,11 @@
                                     {{member.RelationName}}
                                   </td>
                                   <td>
-                                    <a class="btn-link"
-                                       (click)="openModalForNewMember(newFamilyMember, member)">{{member.Name}}</a>
+                                    <div class="media align-items-center">
+                                      <div class="media-body">
+                                        <span class="mb-0 text-sm">{{member.Name}}</span>
+                                      </div>
+                                    </div>
                                   </td>
                                   <td>
                                     {{member.YearOfBirth}}
@@ -339,6 +343,18 @@
                                   </td>
                                   <td>
                                     {{member.PhoneNumber}}
+                                  </td>
+                                  <td class="text-right">
+                                    <div ngbDropdown placement="bottom-right">
+                                      <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                      </a>
+                                      <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           (click)="openModalForNewMember(newFamilyMember, member)">Chỉnh sửa</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Xóa</a>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                                 </tbody>

@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {StudentProfileService} from '../../../_areas/public-area/_services/student-profile.service';
 import {Achievement, FamilyMember, HighSchoolResult, StudentProfile} from '../../../_areas/public-area/_entities/student-profile';
 import {ProfileLibrary} from '../../../_areas/public-area/_entities/profile-library';
-import {ModalDismissReasons, NgbDateAdapter, NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateAdapter, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateCustomParserFormatter} from '../../../_core/dateformat';
 import {NgbDateCustomAdapter} from '../../../_core/date-adapter';
-import {ToastrService} from 'ngx-toastr';
+import {SharedService} from '../../../_core/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,123 +21,101 @@ export class ProfileComponent implements OnInit {
   newMember: FamilyMember;
   newLearningResult: HighSchoolResult;
   newAchievement: Achievement;
-  loading = true;
-  closeResult: string;
 
   constructor(private profileService: StudentProfileService,
-              private modalService: NgbModal,
-              private toastr: ToastrService) {
+              private sharedService: SharedService) {
+    this.sharedService.emitChange(true);
     this.newMember = new FamilyMember();
     this.newAchievement = new Achievement();
     this.newLearningResult = new HighSchoolResult();
   }
 
   ngOnInit() {
-    this.loading = true;
     this.profileService.getProfileLibrary().subscribe(
       value => {
         this.library = value;
       },
       error => {
+        this.sharedService.notifyError(error['error']);
       }
     );
     this.profileService.getStudentProfile().subscribe(
       value => {
-        this.loading = false;
+        this.sharedService.emitChange(false);
         this.profile = value;
       },
       error => {
-        this.loading = false;
-        console.log(error);
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError(error['error']);
       }
     );
   }
 
   SaveProfile() {
+    this.sharedService.emitChange(true);
     console.log(this.profile);
   }
 
   open(content, type, modalDimension, object) {
     if (modalDimension === 'sm' && type === 'modal_mini') {
-      this.modalService.open(content, {windowClass: 'modal-mini', size: 'sm', centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+      this.sharedService.openFormModal(content, 'sm');
     } else if (modalDimension === '' && type === 'Notification') {
-      this.modalService.open(content, {windowClass: 'modal-danger', centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+      this.sharedService.openFormModal(content, 'sm');
     } else {
-      console.log((object instanceof FamilyMember));
       if (object !== this.newMember) {
         this.newMember = object;
       } else {
         this.newMember = new FamilyMember();
       }
-      this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+      this.sharedService.openFormModal(content, 'lg');
     }
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 
   saveFamilyMember() {
+    this.sharedService.emitChange(true);
     this.profileService.saveFamilyMemeber(this.newMember).subscribe(
       value => {
-        this.modalService.dismissAll();
-        this.toastr.success('Lưu thông tin thành viên thành công.');
-        console.log(value);
+        this.sharedService.emitChange(false);
+        this.sharedService.dismissAll();
+        this.sharedService.notifySuccess('Lưu thông tin thành viên thành công.');
       },
       error => {
+        this.sharedService.emitChange(false);
         if (error.status === 400) {
-          this.toastr.error('Bad request');
-          console.log(error);
+          this.sharedService.notifyError('Bad request');
         } else {
-          this.toastr.error('Hệ thống có vấn đề. Vui lòng thử lại sau.');
+          this.sharedService.notifyError('Hệ thống có vấn đề. Vui lòng thử lại sau.');
         }
       }
     );
   }
 
   saveLearningResult() {
+    this.sharedService.emitChange(true);
     this.profileService.saveLearningResult(this.newLearningResult).subscribe(
       value => {
-        this.modalService.dismissAll();
-        this.toastr.success('Lưu thông tin học lực thành công.');
-        console.log(value);
+        this.sharedService.emitChange(false);
+        this.sharedService.dismissAll();
+        this.sharedService.notifySuccess('Lưu thông tin học lực thành công.');
       },
       error => {
-        this.toastr.error('error');
-        console.log(error);
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError('error');
       }
     );
   }
 
   saveAchievement() {
+    this.sharedService.emitChange(true);
     this.profileService.saveAchievement(this.newAchievement).subscribe(
       value => {
-        this.modalService.dismissAll();
-        this.toastr.success('Lưu thông tin thành tựu thành công.');
-        console.log(value);
+        this.sharedService.emitChange(false);
+        this.sharedService.dismissAll();
+        this.sharedService.notifySuccess('Lưu thông tin thành tựu thành công.');
       },
       error => {
-        this.toastr.error('error');
-        console.log(error);
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError('error');
       }
     );
   }
@@ -145,29 +123,19 @@ export class ProfileComponent implements OnInit {
   openModalForNewMember(content, member) {
     if (member) {
       this.newMember = member;
-      console.log(member);
     } else {
       this.newMember = new FamilyMember();
     }
-    this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.sharedService.openFormModal(content, 'lg');
   }
 
   openModalForNewResult(content, result) {
     if (result) {
       this.newLearningResult = result;
-      console.log(this.newLearningResult);
     } else {
       this.newLearningResult = new HighSchoolResult();
     }
-    this.modalService.open(content, {windowClass: '', size: 'sm', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.sharedService.openFormModal(content, 'lg');
   }
 
   openModalForNewAchievement(content, achievement) {
@@ -177,10 +145,6 @@ export class ProfileComponent implements OnInit {
     } else {
       this.newAchievement = new Achievement();
     }
-    this.modalService.open(content, {windowClass: '', size: 'sm', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.sharedService.openFormModal(content, 'sm');
   }
 }

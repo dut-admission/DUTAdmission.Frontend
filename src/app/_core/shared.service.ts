@@ -1,12 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  constructor(private toastr: ToastrService) {
+  closeResult = '';
+
+  constructor(private toastr: ToastrService,
+              private modalService: NgbModal) {
   }
 
   // Observable string sources
@@ -37,5 +41,27 @@ export class SharedService {
       enableHtml: true,
       positionClass: 'toast-top-center'
     });
+  }
+
+  openFormModal(content, size) {
+    this.modalService.open(content, {windowClass: '', size: size, centered: true}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  dismissAll() {
+    this.modalService.dismissAll();
   }
 }

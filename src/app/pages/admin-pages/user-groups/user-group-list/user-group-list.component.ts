@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountGroup} from '../../../../_areas/admin-area/_entities/account-group';
 import {AccountGroupService} from '../../../../_areas/admin-area/_services/account-group.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SharedService} from '../../../../_core/shared.service';
 
 @Component({
   selector: 'app-user-group-list',
@@ -11,10 +11,9 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class UserGroupListComponent implements OnInit {
   groups: AccountGroup[] = [];
   newGroup: AccountGroup;
-  private closeResult: string;
 
   constructor(private groupService: AccountGroupService,
-              private modalService: NgbModal) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -27,20 +26,6 @@ export class UserGroupListComponent implements OnInit {
     } else {
       this.newGroup = new AccountGroup(null);
     }
-    this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.sharedService.openFormModal(content, 'lg');
   }
 }

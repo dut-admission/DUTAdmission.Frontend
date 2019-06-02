@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 import {LoginInfo} from '../../../_areas/auth-area/_entities/login-info';
 import {Router} from '@angular/router';
@@ -16,13 +16,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private toastr: ToastrService,
               private sharedService: SharedService) {
   }
 
   initRememberPassword() {
     const username = localStorage.getItem('username');
-    const password = localStorage.getItem('Password');
+    const password = localStorage.getItem('password');
     if (username !== null && password !== null) {
       this.loginInfo = new LoginInfo(username, atob(password));
       this.remembered = true;
@@ -38,11 +37,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         value => {
           this.sharedService.emitChange(false);
           this.saveLoginInfoToLocal();
-          this.router.navigate(['/home']);
+          if (value['isStudent']) {
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
         },
         error => {
           this.sharedService.emitChange(false);
-          console.log(error);
           this.sharedService.notifyError(error['error']);
         }
       );
@@ -52,10 +54,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   saveLoginInfoToLocal() {
     if (this.remembered === true) {
       localStorage.setItem('username', this.loginInfo.username);
-      localStorage.setItem('Password', btoa(this.loginInfo.Password));
+      localStorage.setItem('password', btoa(this.loginInfo.Password));
     } else {
       localStorage.removeItem('username');
-      localStorage.removeItem('Password');
+      localStorage.removeItem('password');
     }
   }
 
@@ -71,25 +73,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     return text !== undefined && text !== null && text !== '';
   }
 
-  notifyErrorMessage(message: string) {
-    this.toastr.clear();
-    this.toastr.error(`<div class="text-center">${message}</div>`, 'Thông báo', {
-      timeOut: 4000,
-      closeButton: true,
-      positionClass: 'toast-top-center',
-      enableHtml: true
-    });
-  }
-
   notifUserNameVaMatKhau() {
-    this.toastr.clear();
     if (!this.isValidated()) {
-      this.toastr.error(`<span class="now-ui-icons ui-1_bell-53"></span>Username và Password không được bỏ trống!.`, 'Thông báo', {
-        timeOut: 4000,
-        closeButton: true,
-        enableHtml: true,
-        positionClass: 'toast-top-center'
-      });
+      this.sharedService.notifyError('Username và Password không được bỏ trống!.');
     }
   }
 
