@@ -11,6 +11,8 @@ import {TuitionListComponent} from '../../pages/admin-pages/tuitions/tuition-lis
 import {UserListComponent} from '../../pages/admin-pages/users/user-list/user-list.component';
 import {UserGroupListComponent} from '../../pages/admin-pages/user-groups/user-group-list/user-group-list.component';
 import {PermissionComponent} from '../../pages/admin-pages/permission/permission.component';
+import {DocumentTypeListComponent} from '../../pages/admin-pages/documents-type/document-type-list/document-type-list.component';
+import {TuitionTypeListComponent} from '../../pages/admin-pages/tuition-type/tuition-type-list/tuition-type-list.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -24,5 +26,8 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'admin/users', component: UserListComponent},
   {path: 'admin/user-groups', component: UserGroupListComponent},
   {path: 'admin/permissions', component: PermissionComponent},
+  {path: 'admin/document-type', component: DocumentTypeListComponent},
+  {path: 'admin/tuition-type', component: TuitionTypeListComponent},
+
 
 ];

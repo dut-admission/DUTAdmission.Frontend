@@ -22,6 +22,7 @@ import {JwtInterceptor} from './_core/jwt.interceptor';
 
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -41,6 +42,7 @@ import {JwtInterceptor} from './_core/jwt.interceptor';
     AdminLayoutComponent,
     AuthLayoutComponent,
     PublicLayoutComponent,
+
   ],
   providers: [
     {

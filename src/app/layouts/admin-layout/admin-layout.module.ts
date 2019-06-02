@@ -20,6 +20,8 @@ import {TuitionListComponent} from '../../pages/admin-pages/tuitions/tuition-lis
 import {UserListComponent} from '../../pages/admin-pages/users/user-list/user-list.component';
 import {UserGroupListComponent} from '../../pages/admin-pages/user-groups/user-group-list/user-group-list.component';
 import {PermissionComponent} from '../../pages/admin-pages/permission/permission.component';
+import {DocumentTypeListComponent} from '../../pages/admin-pages/documents-type/document-type-list/document-type-list.component';
+import {TuitionTypeListComponent} from '../../pages/admin-pages/tuition-type/tuition-type-list/tuition-type-list.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import {PermissionComponent} from '../../pages/admin-pages/permission/permission
     TuitionListComponent,
     UserListComponent,
     UserGroupListComponent,
-    PermissionComponent
+    PermissionComponent,
+    DocumentTypeListComponent,
+    TuitionTypeListComponent
   ]
 })
 
