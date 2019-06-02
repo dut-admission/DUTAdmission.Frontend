@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Account} from '../../../../_areas/admin-area/_entities/account';
 import {AccountService} from '../../../../_areas/admin-area/_services/account.service';
-import {BasicStudent} from '../../../../_areas/admin-area/_entities/basic-student';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SharedService} from '../../../../_core/shared.service';
 
 @Component({
   selector: 'app-user-list',
@@ -12,10 +11,9 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class UserListComponent implements OnInit {
   accounts: Account[] = [];
   newAccount: Account;
-  closeResult = '';
 
   constructor(private acoountService: AccountService,
-              private modalService: NgbModal) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -31,24 +29,9 @@ export class UserListComponent implements OnInit {
     } else {
       this.newAccount = new Account(null);
     }
-    this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.sharedService.openFormModal(content, 'lg');
   }
 
   resetPassword(account: Account) {
-    
   }
 }

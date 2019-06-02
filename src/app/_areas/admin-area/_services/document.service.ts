@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Document} from '../_entities/document';
+import {Document, StudentDoc} from '../_entities/document';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +11,18 @@ export class DocumentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getDocuments(): Document[] {
+  getStudentDocuments(): StudentDoc[] {
+    console.log('hus hus');
+    const studentDocs: StudentDoc[] = [];
     const documents: Document[] = [];
-    for (let index = 0; index < 30; index++) {
+    for (let index = 0; index < 3; index++) {
       documents.push(
         {
-          ClassId: 1,
-          ClassName: '14T2',
           Description: 'Something',
           DocumentTypeId: 1,
           DocumentTypeName: 'Giấy báo nhập học',
           FileName: '',
-          FirstName: 'Trinh',
           Id: index,
-          IdentityNumber: '205796190',
-          LastName: 'An',
           ResponseMessage: '',
           StatusId: 1,
           StatusName: 'Đang thử nghiệm',
@@ -34,6 +31,20 @@ export class DocumentService {
         }
       );
     }
-    return documents;
+
+    for (let index = 1; index < 30; index++) {
+      studentDocs.push(
+        {
+          ClassName: `14T${index}`,
+          FirstName: 'An',
+          Id: index,
+          IdentityNumber: '2015796190',
+          LastName: 'Trinh',
+          ClassId: index % 3,
+          Documents: documents
+        }
+      );
+    }
+    return studentDocs;
   }
 }

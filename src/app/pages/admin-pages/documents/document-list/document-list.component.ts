@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Document} from '../../../../_areas/admin-area/_entities/document';
+import {Document, StudentDoc} from '../../../../_areas/admin-area/_entities/document';
 import {DocumentService} from '../../../../_areas/admin-area/_services/document.service';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SharedService} from '../../../../_core/shared.service';
 
 @Component({
   selector: 'app-document-list',
@@ -10,16 +9,15 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./document-list.component.scss']
 })
 export class DocumentListComponent implements OnInit {
-  documents: Document[] = [];
+  studentDocs: StudentDoc[] = [];
   newDocument: Document;
-  closeResult = '';
 
   constructor(private documentService: DocumentService,
-              private modalService: NgbModal) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
-    this.documents = this.documentService.getDocuments();
+    this.studentDocs = this.documentService.getStudentDocuments();
   }
 
   onOpenPreviewModal(content, document) {
@@ -28,12 +26,7 @@ export class DocumentListComponent implements OnInit {
     } else {
       this.newDocument = new Document(null);
     }
-    console.log(this.newDocument);
-    this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.sharedService.openFormModal(content, 'lg');
   }
 
   onOpenResponseModal(content, document) {
@@ -42,22 +35,6 @@ export class DocumentListComponent implements OnInit {
     } else {
       this.newDocument = new Document(null);
     }
-    console.log(this.newDocument);
-    this.modalService.open(content, {windowClass: '', size: 'lg', centered: true}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.sharedService.openFormModal(content, 'lg');
   }
 }

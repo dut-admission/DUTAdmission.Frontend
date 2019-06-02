@@ -13,39 +13,18 @@
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
-                      <label>Tên sinh viên</label>
-                      <input type="text" class="form-control" placeholder="Tên sinh viên" value="Trinh Minh An">
+                      <label>Từ khóa</label>
+                      <input type="text" class="form-control" placeholder="Từ khóa" value="Trinh Minh An">
                     </div>
                   </div>
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
-                      <label>Chương trình</label>
+                      <label>Nhóm tài khoản</label>
                       <select class="form-control">
-                        <option>Tiên tiến ECE</option>
-                        <option>Việt Pháp PFIEV</option>
-                        <option>Chất lượng cao CLC</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group">
-                      <label>Ngành</label>
-                      <select class="form-control">
-                        <option>Tự động hóa</option>
-                        <option>Điện dân dụng</option>
-                        <option>Điện công nghiệp</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group">
-                      <label>Lớp</label>
-                      <select class="form-control">
-                        <option>14T1</option>
-                        <option>14T2</option>
-                        <option>14T3</option>
+                        <option>Nhân viên phòng tổ chức hành chính</option>
+                        <option>Nhân viên phòng công tác sinh viên</option>
+                        <option>Nhân viên phòng đào tạo</option>
+                        <option>Sinh viên</option>
                       </select>
                     </div>
                   </div>
@@ -76,44 +55,44 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
-          <h3 class="mb-0">Danh sách sinh viên</h3>
+          <h3 class="mb-0">Danh sách người dùng</h3>
         </div>
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Tên sinh viên</th>
+              <th scope="col">Họ tên</th>
+              <th scope="col">Username</th>
               <th scope="col">Số CMND</th>
-              <th scope="col">Ngày sinh</th>
-              <th scope="col">Lớp</th>
-              <th scope="col">Ngành</th>
+              <th scope="col">Email</th>
               <th scope="col">Số điện thoại</th>
-              <th scope="col"></th>
+              <th scope="col">Nhóm tài khoản</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let student of students">
+            <tr *ngFor="let account of accounts">
               <th scope="row">
                 <div class="media align-items-center">
                   <div class="media-body">
-                    <span class="mb-0 text-sm">{{student.FirstName + ' ' + student.LastName}}</span>
+                    <span class="mb-0 text-sm">{{account.FirstName + ' ' + account.LastName}}</span>
                   </div>
                 </div>
               </th>
               <td>
-                {{student.IdentityNumber}}
+                {{account.Username}}
               </td>
               <td>
-                {{student.DateOfBirth | date: 'dd/MM/yyyy'}}
+                {{account.IdentityNumber}}
               </td>
               <td>
-                {{student.ClassName}}
+                {{account.Email}}
               </td>
               <td>
-                {{student.DepaermentName}}
+                {{account.PhoneNumber}}
               </td>
               <td>
-                {{student.PhoneNumber}}
+                {{account.AccountGroupName}}
               </td>
               <td class="text-right">
                 <div ngbDropdown placement="bottom-right">
@@ -121,8 +100,9 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" (click)="openModalDetail(studentDetail, student)" href="javascript:void(0)">Xem chi tiết</a>
-                    <a class="dropdown-item" (click)="deleteStudent(student)" href="javascript:void(0)">Xóa thông tin</a>
+                    <a class="dropdown-item" (click)="openModalDetail(accountDetail, account)" href="javascript:void(0)">Xem chi tiết</a>
+                    <a class="dropdown-item" (click)="resetPassword(account)" href="javascript:void(0)">Đặt lại mật khẩu</a>
+                    <a class="dropdown-item" (click)="deleteAccount(account)" href="javascript:void(0)">Xóa tài khoản này.</a>
                   </div>
                 </div>
               </td>
@@ -130,13 +110,13 @@
             </tbody>
           </table>
         </div>
-        <ng-template #studentDetail let-c="close" let-d="dismiss">
+        <ng-template #accountDetail let-c="close" let-d="dismiss">
           <div class="modal-content">
             <div class="modal-body p-0">
               <div class="card bg-secondary shadow border-0">
                 <div class="card-header bg-white pb-0">
                   <div class="text-muted text-center">
-                    <h3>Thông tin sinh viên</h3>
+                    <h3>Thông tin tài khoản</h3>
                   </div>
                 </div>
                 <div class="card-body px-lg-5 py-lg-5">
@@ -147,7 +127,7 @@
                           <label class="form-control-label" for="FirstName">Họ và tên</label>
                           <input type="text" id="FirstName"
                                  class="form-control form-control-alternative" name="FirstName"
-                                 placeholder="Họ" [(ngModel)]="student.FirstName">
+                                 placeholder="Họ" [(ngModel)]="newAccount.FirstName">
                         </div>
                       </div>
                       <div class="col-lg-6">
@@ -155,52 +135,25 @@
                           <label class="form-control-label" for="LastName">Tên</label>
                           <input type="text" id="LastName"
                                  class="form-control form-control-alternative" name="LastName"
-                                 placeholder="Tên" [(ngModel)]="student.LastName">
+                                 placeholder="Tên" [(ngModel)]="newAccount.LastName">
                         </div>
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="Username">Username</label>
+                          <input type="text" id="Username"
+                                 class="form-control form-control-alternative" name="Username"
+                                 placeholder="Username" [(ngModel)]="newAccount.Username">
+                        </div>
+                      </div>
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label class="form-control-label" for="IdentityNumber">Số CMND</label>
                           <input type="text" id="IdentityNumber"
                                  class="form-control form-control-alternative" name="IdentityNumber"
-                                 placeholder="Số chứng minh nhân dân" [(ngModel)]="student.IdentityNumber">
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DateOfBirth">Ngày sinh</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                            </div>
-                            <input class="form-control datepicker" placeholder="Select date"
-                                   name="DateOfBirth" id="DateOfBirth"
-                                   [(ngModel)]="student.DateOfBirth"
-                                   ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()"
-                                   (focus)="focus2=true" (blur)="focus2=false" type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="ClassId">Lớp</label>
-                          <select class="form-control form-control-alternative"
-                                  name="ClassId"
-                                  id="ClassId" [(ngModel)]="student.ClassId">
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DepartmentId">Ngành</label>
-                          <select class="form-control form-control-alternative"
-                                  name="DepartmentId"
-                                  id="DepartmentId" [(ngModel)]="student.DepartmentId">
-                          </select>
+                                 placeholder="Số chứng minh nhân dân" [(ngModel)]="newAccount.IdentityNumber">
                         </div>
                       </div>
                     </div>
@@ -210,25 +163,28 @@
                           <label class="form-control-label" for="PhoneNumber">Số điện thoại</label>
                           <input class="form-control form-control-alternative"
                                  name="PhoneNumber" type="text"
-                                 id="PhoneNumber" [(ngModel)]="student.PhoneNumber"/>
+                                 id="PhoneNumber" [(ngModel)]="newAccount.PhoneNumber"/>
                         </div>
                       </div>
                       <div class="col-lg-6">
                         <div class="form-group">
-                          <label class="form-control-label" for="Email">Số điện thoại</label>
+                          <label class="form-control-label" for="Email">Email</label>
                           <input class="form-control form-control-alternative"
                                  name="Email" type="text"
-                                 id="Email" [(ngModel)]="student.Email"/>
+                                 id="Email" [(ngModel)]="newAccount.Email"/>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="form-group">
-                          <label class="form-control-label" for="Address">Địa chỉ</label>
-                          <input class="form-control form-control-alternative"
-                                 name="Address" type="text"
-                                 id="Address" [(ngModel)]="student.Address"/>
+                          <label class="form-control-label" for="AccountGroupId">Nhóm tài khoản</label>
+                          <select class="form-control form-control-alternative"
+                                  name="AccountGroupId"
+                                  id="AccountGroupId" [(ngModel)]="newAccount.AccountGroupId">
+                            <option>Công tác sinh viên</option>
+                            <option>Tổ chức hành chính</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -236,7 +192,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary my-4" >Lưu lại</button>
+                    <button type="button" class="btn btn-primary my-4">Lưu lại</button>
                     <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
                             (click)="c('Close click')">Close
                     </button>

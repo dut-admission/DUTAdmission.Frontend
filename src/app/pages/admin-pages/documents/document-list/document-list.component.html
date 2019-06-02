@@ -102,7 +102,7 @@
           <h3 class="mb-0">Danh sách giấy tờ</h3>
         </div>
         <div class="table-responsive">
-          <table class="table align-items-center table-flush">
+          <table class="table align-items-center table-bordered">
             <thead class="thead-light">
             <tr>
               <th scope="col">Tên sinh viên</th>
@@ -114,26 +114,28 @@
               <th scope="col"></th>
             </tr>
             </thead>
-            <tbody>
-            <tr *ngFor="let document of documents">
-              <th scope="row">
+            <tbody *ngFor="let student of studentDocs">
+            <tr>
+              <th scope="row" [rowSpan]="student.Documents.length + 1">
                 <div class="media align-items-center">
                   <div class="media-body">
-                    <span class="mb-0 text-sm">{{document.FirstName + ' ' + document.LastName}}</span>
+                    <span class="mb-0 text-sm">{{student.FirstName + ' ' + student.LastName}}</span>
                   </div>
                 </div>
               </th>
+              <td [rowSpan]="student.Documents.length + 1">
+                {{student.IdentityNumber}}
+              </td>
+              <td [rowSpan]="student.Documents.length + 1">
+                {{student.ClassName}}
+              </td>
+            </tr>
+            <tr *ngFor="let doc of student.Documents">
               <td>
-                {{document.IdentityNumber}}
+                {{doc.DocumentTypeName}}
               </td>
               <td>
-                {{document.ClassName}}
-              </td>
-              <td>
-                {{document.DocumentTypeName}}
-              </td>
-              <td>
-                <span class="badge badge-dot" *ngIf="document.IsRequired; else NotRequired">
+                <span class="badge badge-dot" *ngIf="doc.IsRequired; else NotRequired">
                     <i class="bg-danger"></i> Bắt buộc
                   </span>
                 <ng-template #NotRequired>
@@ -156,11 +158,11 @@
                   </a>
                   <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
                     <a class="dropdown-item" href="javascript:void(0)"
-                       (click)="onOpenPreviewModal(previewDocument, document)">Chi tiết tài liệu</a>
+                       (click)="onOpenPreviewModal(previewDocument, doc)">Chi tiết tài liệu</a>
                     <a class="dropdown-item" href="javascript:void(0)"
-                       (click)="onOpenPreviewModal(previewDocument, document)">Xem tài liệu</a>
+                       (click)="onOpenPreviewModal(previewDocument, doc)">Xem tài liệu</a>
                     <a class="dropdown-item" href="javascript:void(0)"
-                       (click)="onOpenResponseModal(responseMessage, document)">Tạo phản hồi</a>
+                       (click)="onOpenResponseModal(responseMessage, doc)">Tạo phản hồi</a>
                   </div>
                 </div>
               </td>
@@ -168,115 +170,6 @@
             </tbody>
           </table>
         </div>
-        <!--
-        <ng-template #documentDetail let-c="close" let-d="dismiss">
-          <div class="modal-content">
-            <div class="modal-body p-0">
-              <div class="card bg-secondary shadow border-0">
-                <div class="card-header bg-white pb-0">
-                  <div class="text-muted text-center">
-                    <h3>Thông tin sinh viên</h3>
-                  </div>
-                </div>
-                <div class="card-body px-lg-5 py-lg-5">
-                  <form role="form">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="FirstName">Họ và tên</label>
-                          <input type="text" id="FirstName"
-                                 class="form-control form-control-alternative" name="FirstName"
-                                 placeholder="Họ" [(ngModel)]="group.FirstName">
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="LastName">Tên</label>
-                          <input type="text" id="LastName"
-                                 class="form-control form-control-alternative" name="LastName"
-                                 placeholder="Tên" [(ngModel)]="group.LastName">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="IdentityNumber">Số CMND</label>
-                          <input type="text" id="IdentityNumber"
-                                 class="form-control form-control-alternative" name="IdentityNumber"
-                                 placeholder="Số chứng minh nhân dân" [(ngModel)]="group.IdentityNumber">
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DateOfBirth">Ngày sinh</label>
-                          <input type="text" id="DateOfBirth"
-                                 class="form-control form-control-alternative" name="DateOfBirth"
-                                 placeholder="Ngày sinh" [(ngModel)]="group.DateOfBirth">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="ClassId">Lớp</label>
-                          <select class="form-control form-control-alternative"
-                                  name="ClassId"
-                                  id="ClassId" [(ngModel)]="group.ClassId">
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DepartmentId">Ngành</label>
-                          <select class="form-control form-control-alternative"
-                                  name="DepartmentId"
-                                  id="DepartmentId" [(ngModel)]="group.DepartmentId">
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="PhoneNumber">Số điện thoại</label>
-                          <input class="form-control form-control-alternative"
-                                 name="PhoneNumber" type="text"
-                                 id="PhoneNumber" [(ngModel)]="group.PhoneNumber"/>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="Email">Số điện thoại</label>
-                          <input class="form-control form-control-alternative"
-                                 name="Email" type="text"
-                                 id="Email" [(ngModel)]="group.Email"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                          <label class="form-control-label" for="Address">Địa chỉ</label>
-                          <input class="form-control form-control-alternative"
-                                 name="Address" type="text"
-                                 id="Address" [(ngModel)]="group.Address"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <button type="button" class="btn btn-primary my-4" >Lưu lại</button>
-                      <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
-                              (click)="c('Close click')">Close
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        -->
         <ng-template #previewDocument let-c="close" let-d="dismiss">
           <div class="modal-content">
             <div class="modal-body p-0">
