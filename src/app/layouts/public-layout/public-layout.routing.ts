@@ -7,8 +7,8 @@ import {NewsDetailComponent} from '../../pages/public-page/news/news-detail/news
 import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.component';
 import {AdmissionPageComponent} from '../../pages/public-page/admission-page/admission-page.component';
 import {AdmissionFormsComponent} from '../../pages/public-page/admission-page/admission-forms/admission-forms.component';
-import {AdmissionTuitionComponent} from '../../pages/public-page/admission-page/admission-tuition/admission-tuition.component';
 import {AdmissionDocsComponent} from '../../pages/public-page/admission-page/admission-docs/admission-docs.component';
+import {TuitionComponent} from '../../pages/public-page/tuition/tuition.component';
 
 export const PublicLayoutRoutes: Routes = [
   {path: 'home', component: LandingComponent},
@@ -17,10 +17,10 @@ export const PublicLayoutRoutes: Routes = [
   {path: 'news', component: ListOfNewsComponent},
   {path: 'news/:id', component: NewsDetailComponent},
   {path: 'about-us', component: AboutUsComponent},
+  {path: 'tuition', component: TuitionComponent},
   {path: 'admission', component: AdmissionPageComponent, children: [
-      { path: ' '		, redirectTo: 'form' },
+      { path: ''		, redirectTo: 'form', pathMatch: 'full' },
       { path: 'form', component: AdmissionFormsComponent},
-      { path: 'tuition'	, component:  AdmissionTuitionComponent},
       { path: 'docs', component: AdmissionDocsComponent },
     ]}
 ];
