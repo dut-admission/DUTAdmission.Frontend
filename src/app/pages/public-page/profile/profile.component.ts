@@ -6,6 +6,9 @@ import {NgbDateAdapter, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap
 import {NgbDateCustomParserFormatter} from '../../../_core/dateformat';
 import {NgbDateCustomAdapter} from '../../../_core/date-adapter';
 import {SharedService} from '../../../_core/shared.service';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {element} from 'protractor';
+import {ninvoke} from 'q';
 
 @Component({
   selector: 'app-profile',
@@ -25,9 +28,9 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: StudentProfileService,
               private sharedService: SharedService) {
     this.sharedService.emitChange(true);
-    this.newMember = new FamilyMember();
+    this.newMember = new FamilyMember(null);
     this.newAchievement = new Achievement();
-    this.newLearningResult = new HighSchoolResult();
+    this.newLearningResult = new HighSchoolResult(null);
   }
 
   ngOnInit() {
@@ -56,21 +59,6 @@ export class ProfileComponent implements OnInit {
     console.log(this.profile);
   }
 
-  open(content, type, modalDimension, object) {
-    if (modalDimension === 'sm' && type === 'modal_mini') {
-      this.sharedService.openFormModal(content, 'sm');
-    } else if (modalDimension === '' && type === 'Notification') {
-      this.sharedService.openFormModal(content, 'sm');
-    } else {
-      if (object !== this.newMember) {
-        this.newMember = object;
-      } else {
-        this.newMember = new FamilyMember();
-      }
-      this.sharedService.openFormModal(content, 'lg');
-    }
-  }
-
   saveFamilyMember() {
     this.sharedService.emitChange(true);
     this.profileService.saveFamilyMemeber(this.newMember).subscribe(
@@ -78,6 +66,12 @@ export class ProfileComponent implements OnInit {
         this.sharedService.emitChange(false);
         this.sharedService.dismissAll();
         this.sharedService.notifySuccess('Lưu thông tin thành viên thành công.');
+        if (this.newMember.Id === 0) {
+          this.profile.FamilyMembers.push(this.newMember);
+        } else {
+          const index = this.profile.FamilyMembers.findIndex(member => member.Id === this.newMember.Id);
+          this.profile.FamilyMembers[index] = new FamilyMember(this.newMember);
+        }
       },
       error => {
         this.sharedService.emitChange(false);
@@ -97,6 +91,12 @@ export class ProfileComponent implements OnInit {
         this.sharedService.emitChange(false);
         this.sharedService.dismissAll();
         this.sharedService.notifySuccess('Lưu thông tin học lực thành công.');
+        if (this.newMember.Id === 0) {
+          this.profile.HightSchoolInfo.HighSchoolResults.push(this.newLearningResult);
+        } else {
+          const index = this.profile.HightSchoolInfo.HighSchoolResults.findIndex(member => member.Id === this.newLearningResult.Id);
+          this.profile.HightSchoolInfo.HighSchoolResults[index] = new HighSchoolResult(this.newLearningResult);
+        }
       },
       error => {
         this.sharedService.emitChange(false);
@@ -122,18 +122,18 @@ export class ProfileComponent implements OnInit {
 
   openModalForNewMember(content, member) {
     if (member) {
-      this.newMember = member;
+      this.newMember = new FamilyMember(member);
     } else {
-      this.newMember = new FamilyMember();
+      this.newMember = new FamilyMember(null);
     }
     this.sharedService.openFormModal(content, 'lg');
   }
 
   openModalForNewResult(content, result) {
     if (result) {
-      this.newLearningResult = result;
+      this.newLearningResult = new HighSchoolResult(result);
     } else {
-      this.newLearningResult = new HighSchoolResult();
+      this.newLearningResult = new HighSchoolResult(null);
     }
     this.sharedService.openFormModal(content, 'lg');
   }

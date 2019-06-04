@@ -1,0 +1,65 @@
+<main class="profile-page">
+  <section class="section-profile-cover section-shaped my-0">
+    <!-- Circles background -->
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="card card-profile shadow mt--300">
+        <div class="px-4">
+          <div class="text-center mt-5">
+            <h3>
+              Quản lý thông tin học phí
+            </h3>
+          </div>
+          <hr class="my-4"/>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="table-responsive">
+                <table class="table align-items-center table-hover table-bordered">
+                  <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Loại chi phí</th>
+                    <th scope="col">Số tiền</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th>Học phí học kì 1</th>
+                    <td>{{tuition.TuitionFee}}</td>
+                  </tr>
+                  <tr *ngFor="let type of tuition.TuitionTypes">
+                    <th scope="row">
+                      {{type.Name}}
+                    </th>
+                    <td>
+                      {{type.Money}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tổng học phí học kì 1</td>
+                    <td>{{tuition.TotalOfFee}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 py-5 border-top text-center">
+            <div class="row justify-content-center">
+              <button class="btn btn-outline-primary" href="javascript:void(0)">Nhận mã chuyển khoản học phí</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

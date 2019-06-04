@@ -3,6 +3,7 @@ import {AdmissionService} from '../../../../_areas/public-area/_services/admissi
 import {Document, DocumentForUpload} from '../../../../_areas/public-area/_entities/document';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
+import {SharedService} from '../../../../_core/shared.service';
 
 @Component({
   selector: 'app-admission-docs',
@@ -16,7 +17,9 @@ export class AdmissionDocsComponent implements OnInit {
 
   constructor(private admissionService: AdmissionService,
               private modalService: NgbModal,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private sharedService: SharedService,
+  ) {
     this.documents = [];
     this.file = new DocumentForUpload();
   }
@@ -26,11 +29,16 @@ export class AdmissionDocsComponent implements OnInit {
   }
 
   onLoadDocument() {
+    this.sharedService.emitChange(true);
     this.admissionService.getDocuments().subscribe(
       value => {
+        this.sharedService.emitChange(false);
         this.documents = value;
       },
-      error => console.log(error)
+      error => {
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError(error);
+      }
     );
   }
 
