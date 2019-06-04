@@ -1,0 +1,102 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Danh sách loại giấy tờ</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Tên loại giấy tờ</th>
+              <th scope="col">Mô tả</th>
+              <th scope="col">Yêu cầu bắt buộc</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document_type of document_type_list">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{document_type.Name}}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{document_type.Description}}
+              </td>
+              <td>
+                {{document_type.IsRequired}}
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" (click)="openModalDetail(groupDetail, group)" href="javascript:void(0)">Xem chi tiết</a>
+                    <a class="dropdown-item" (click)="deleteAccountGroup(group)" href="javascript:void(0)">Xóa nhóm tài khoản này.</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #groupDetail let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Thông tin nhóm tài khoản</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <form role="form">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="FirstName">Họ và tên</label>
+                          <input type="text" id="FirstName"
+                                 class="form-control form-control-alternative" name="FirstName"
+                                 placeholder="Họ" [(ngModel)]="newGroup.Name">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="LastName">Tên</label>
+                          <input type="text" id="LastName"
+                                 class="form-control form-control-alternative" name="LastName"
+                                 placeholder="Tên" [(ngModel)]="newGroup.Description">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary my-4">Lưu lại</button>
+                    <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
+                            (click)="c('Close click')">Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
