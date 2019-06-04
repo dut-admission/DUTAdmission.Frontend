@@ -1,78 +1,40 @@
 <main>
   <!-- shape Hero -->
-  <section class="section section-lg section-shaped">
-    <div class="shape shape-style-1 shape-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+  <section class="section section-lg section-hero section-shaped">
+    <!-- Background circles -->
+    <div class="shape shape-style-1 shape-primary">
+      <span class="span-150"></span>
+      <span class="span-50"></span>
+      <span class="span-50"></span>
+      <span class="span-75"></span>
+      <span class="span-100"></span>
+      <span class="span-75"></span>
+      <span class="span-50"></span>
+      <span class="span-100"></span>
+      <span class="span-50"></span>
+      <span class="span-100"></span>
     </div>
-    <div class="container py-md">
-      <div class="row row-grid justify-content-between align-items-center">
-        <div class="col-lg-6">
-          <h3 class="display-3 text-white">Hệ thống nhập học điện tử
-            <span class="text-white">Đại học Bách khoa - Đại học Đà Nẵng</span>
-          </h3>
-          <p class="lead text-white">Trường Đại học Bách Khoa - Đại học Đà Nẵng sẽ trở thành một trong những trường đại học hàng đầu trong khu vực Đông Nam Á.</p>
-          <div class="btn-wrapper">
-            <a [routerLink]="['/instruction']" class="btn btn-success">Hướng dẫn nhập học</a>
-            <a [routerLink]="['/login']" class="btn btn-white">Đăng nhập</a>
-          </div>
-        </div>
-        <div class="col-lg-5 mb-lg-auto">
-          <div class="transform-perspective-right">
-            <div class="card bg-secondary shadow border-0">
-              <div class="card-header bg-white pb-3">
-                <div class="font-weight-bold text-center">
-                  <h3>ĐĂNG NHẬP</h3>
-                </div>
-              </div>
-              <div class="card-body px-lg-5 py-lg-5">
-                <div class="text-center text-muted mb-4">
-                  <small>Vui lòng nhập thông tin tài khoản tại đây</small>
-                </div>
-                <form role="form">
-                  <div class="form-group mb-3" [ngClass]="{'focused':focus===true}">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Email" type="email" (focus)="focus=true" (blur)="focus=false">
-                    </div>
-                  </div>
-                  <div class="form-group" [ngClass]="{'focused':focus1===true}">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Mật khẩu" type="password" (focus)="focus1=true" (blur)="focus1=false">
-                    </div>
-                  </div>
-                  <div class="custom-control custom-control-alternative custom-checkbox">
-                    <input class="custom-control-input" id=" customCheckLogin2" type="checkbox">
-                    <label class="custom-control-label" for=" customCheckLogin2">
-                      <span>Ghi nhớ</span>
-                    </label>
-                  </div>
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary my-4">Đăng nhập</button>
-                  </div>
-                </form>
-              </div>
+    <div class="container shape-container d-flex align-items-center py-lg">
+      <div class="col px-0">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-lg-6 text-center">
+            <img src="./assets/img/brand/argon-white.png" style="width: 200px;" class="img-fluid">
+            <h1 class="lead text-white">Hệ thống nhập học điện tử</h1>
+            <p class="lead text-white">Đại học Bách khoa - Đại học Đà Nẵng</p>
+            <div class="btn-wrapper mt-5">
+              <a routerLink="/instruction" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0">
+                <span class="btn-inner--icon"><i class="ni ni-hat-3"></i></span>
+                <span class="btn-inner--text">Hướng dẫn nhập học</span>
+              </a>
+              <a routerLink="/login" class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0" *ngIf="!authenticationService.currentUserValue">
+                <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                <span class="btn-inner--text">
+                    Đăng nhập</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- SVG separator -->
-    <div class="separator separator-bottom separator-skew">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-      </svg>
     </div>
   </section>
   <!--
@@ -138,8 +100,13 @@
                     <i class="ni ni-user-run"></i>
                   </div>
                   <h6 class="text-primary text-uppercase">Cập nhật thông tin cá nhân</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
+                  <ul>
+                    <li><p class="description align-text-left">1. Thông tin cá nhân</p></li>
+                    <li><p class="description">2. Thông tin nhân thân</p></li>
+                    <li><p class="description">3. Kết quả học tập ở cấp 3</p></li>
+                    <li><p class="description">4. Các thành tích đã đạt được</p></li>
+                  </ul>
+                  <!--
                   <div class="progress-wrapper">
                     <div class="progress-info">
                       <div class="progress-label">
@@ -151,7 +118,8 @@
                     </div>
                     <ngb-progressbar type="primary" [value]="60"></ngb-progressbar>
                   </div>
-                  <a href="javascript:void(0)" class="btn btn-primary mt-4">Tìm hiểu thêm</a>
+                  -->
+                  <a routerLink="/profile" class="btn btn-primary mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
@@ -161,21 +129,14 @@
                   <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
                     <i class="ni ni-check-bold"></i>
                   </div>
-                  <h6 class="text-success text-uppercase">Hoàn thành các mẫu đăng ký</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span>Đã hoàn thành</span>
-                      </div>
-                      <div class="progress-percentage">
-                        <span>60%</span>
-                      </div>
-                    </div>
-                    <ngb-progressbar type="primary" [value]="60"></ngb-progressbar>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-success mt-4">Tìm hiểu thêm</a>
+                  <h6 class="text-success text-uppercase">Các loại giấy tờ liên quan</h6>
+                  <ul>
+                    <li><p class="description">1. Kiểm tra lại đơn nhập học</p></li>
+                    <li><p class="description">2. Tải xuống đơn nhập học</p></li>
+                    <li><p class="description">3. Tải lên các giấy tờ yêu cầu</p></li>
+                    <li><p class="description">4. Chờ phản hồi từ nhà trường</p></li>
+                  </ul>
+                  <a routerLink="/admission/form" class="btn btn-success mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
@@ -185,29 +146,23 @@
                   <div class="icon icon-shape icon-shape-warning rounded-circle mb-4">
                     <i class="ni ni-money-coins"></i>
                   </div>
-                  <h6 class="text-warning text-uppercase">Thanh toán học phí.</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most
-                    important components and features.</p>
-                  <div class="progress-wrapper">
-                    <div class="progress-info">
-                      <div class="progress-label">
-                        <span>Đã hoàn thành</span>
-                      </div>
-                      <div class="progress-percentage">
-                        <span>60%</span>
-                      </div>
-                    </div>
-                    <ngb-progressbar type="primary" [value]="60"></ngb-progressbar>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-warning mt-4">Tìm hiểu thêm</a>
+                  <h6 class="text-warning text-uppercase">Kiểm tra thông tin học phí.</h6>
+                  <ul>
+                    <li><p class="description">1. Kiểm tra thông tin học phí</p></li>
+                    <li><p class="description">2. Lấy mã chuyển khoản từ nhà trường</p></li>
+                    <li><p class="description">3. Thực hiện chuyển khoản tại ngân hàng gần nhất hoặc có thể đóng học phí ngay tại trường đại học</p></li>
+                  </ul>
+                  <a routerLink="/tuition" class="btn btn-warning mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
           </div>
 <!--          <p class="lead">Cause if you do, it can be yours for FREE. Hit the button below to navigate to Creative Tim where you can find the Design System in Angular. Start a new project or give an old Angular project a new look!</p>-->
+          <!--
           <div class="btn-wrapper btn-how-to-use">
             <a routerLink="/instruction" class="btn btn-primary mb-3 mb-sm-0">Hướng dẫn chi tiết</a>
           </div>
+          -->
         </div>
       </div>
     </div>
@@ -234,7 +189,7 @@
             Là nơi đào tạo nguồn nhân lực kỹ thuật, công nghệ chất lượng cao và cung cấp các dịch vụ khoa học, công nghệ
             đáp ứng nhu cầu phát triển bền vững kinh tế - xã hội của khu vực miền Trung - Tây Nguyên và cả nước.</p>
           <a
-            href="https://demos.creative-tim.com/argon-design-system-angular/documentation/alerts?ref=adsa-bootstrap-carousel"
+            routerLink="/about-us"
             class="btn btn-white mt-4">Tìm hiểu thêm</a>
         </div>
         <div class="col-lg-6 mb-lg-auto">
@@ -367,8 +322,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
           <h2 class="display-3">Tin tức</h2>
-          <p class="lead text-muted">According to the National Oceanic and Atmospheric Administration, Ted, Scambos,
-            NSIDClead scentist, puts the potentially record maximum.</p>
+          <p class="lead text-muted">Các thông tin, thông báo liên quan đến vấn đề tuyển sinh và nhập học của sinh viên trường Đại học Bách Khoa Đà Nẵng</p>
         </div>
       </div>
       <div class="row row-grid align-items-center">
@@ -452,64 +406,10 @@
       </div>
       <div class="row row-grid align-items-center justify-content-center">
         <div class="col-md-12 align-items-center text-center">
-          <button class="btn btn-1 btn-success btn-see-all">Xem tất cả</button>
+          <button class="btn btn-1 btn-success btn-see-all" routerLink="/news">Xem tất cả</button>
         </div>
       </div>
     </div>
   </section>
-  <section class="section section-lg bg-gradient-default">
-    <div class="container pt-lg pb-300">
-      <div class="row text-center justify-content-center">
-        <div class="col-lg-10">
-          <h2 class="display-3 text-white">Liên hệ với chúng tôi</h2>
-          <p class="lead text-white">Nếu có bất kỳ thắc mắc nào, xin vui lòng để lại phản hồi và góp ý cho chúng tôi
-            ngay tại đây!</p>
-        </div>
-      </div>
-    </div>
-    <!-- SVG separator -->
-    <div class="separator separator-bottom separator-skew zindex-100">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-           xmlns="http://www.w3.org/2000/svg">
-        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-      </svg>
-    </div>
-  </section>
-  <section class="section section-lg pt-lg-0 section-contact-us">
-    <div class="container">
-      <div class="row justify-content-center mt--300">
-        <div class="col-lg-8">
-          <div class="card bg-gradient-secondary shadow">
-            <div class="card-body p-lg-5">
-              <div class="form-group mt-5" [ngClass]="{'focused':focus===true}">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-user-run"></i></span>
-                  </div>
-                  <input class="form-control" placeholder="Tên của bạn" type="text" (focus)="focus=true"
-                         (blur)="focus=false">
-                </div>
-              </div>
-              <div class="form-group" [ngClass]="{'focused':focus1===true}">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                  </div>
-                  <input class="form-control" placeholder="Email của bạn" type="email" (focus)="focus1=true"
-                         (blur)="focus1=false">
-                </div>
-              </div>
-              <div class="form-group mb-4">
-                <textarea class="form-control form-control-alternative" name="name" rows="4" cols="80"
-                          placeholder="Lời nhắn..."></textarea>
-              </div>
-              <div>
-                <button type="button" class="btn btn-default btn-round btn-block btn-lg">Gửi tin nhắn</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-contact-form></app-contact-form>
 </main>

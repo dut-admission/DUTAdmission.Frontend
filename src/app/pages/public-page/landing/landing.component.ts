@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 
 @Component({
     selector: 'app-landing',
@@ -10,7 +11,7 @@ export class LandingComponent implements OnInit {
   focus: any;
   focus1: any;
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {}
 

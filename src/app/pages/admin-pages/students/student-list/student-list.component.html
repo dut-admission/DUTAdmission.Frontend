@@ -171,9 +171,16 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label class="form-control-label" for="DateOfBirth">Ngày sinh</label>
-                          <input type="text" id="DateOfBirth"
-                                 class="form-control form-control-alternative" name="DateOfBirth"
-                                 placeholder="Ngày sinh" [(ngModel)]="student.DateOfBirth">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                            </div>
+                            <input class="form-control datepicker" placeholder="Select date"
+                                   name="DateOfBirth" id="DateOfBirth"
+                                   [(ngModel)]="student.DateOfBirth"
+                                   ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()"
+                                   (focus)="focus2=true" (blur)="focus2=false" type="text"/>
+                          </div>
                         </div>
                       </div>
                     </div>

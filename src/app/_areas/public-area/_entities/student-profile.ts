@@ -38,6 +38,22 @@ export class HighSchoolResult {
   LearningAbilityId: number;
   LearningAbilityName: string;
   GPAScore: number;
+
+  constructor(result: HighSchoolResult) {
+    if (result) {
+      this.Id = result.Id;
+      this.HightSchoolYearId = result.HightSchoolYearId;
+      this.ConductTypeId = result.ConductTypeId;
+      this.LearningAbilityId = result.LearningAbilityId;
+      this.GPAScore = result.GPAScore;
+    } else {
+      this.Id = 0;
+      this.HightSchoolYearId = 1;
+      this.ConductTypeId = 1;
+      this.LearningAbilityId = 1;
+      this.GPAScore = 0;
+    }
+  }
 }
 
 export class Achievement {
@@ -49,6 +65,14 @@ export class Achievement {
   AchievementPrizeId: number;
   AchievementPrizeName: string;
   Description: string;
+
+  constructor() {
+    this.Description = '';
+    this.AchievementPrizeId = 1;
+    this.AchievementLevelId = 1;
+    this.AchievementTypeId = 1;
+  }
+
 }
 
 export class HightSchoolInfo {
@@ -78,18 +102,32 @@ export class FamilyMember {
   Email: string;
   Address: string;
 
-  constructor() {
-    this.Id = 0;
-    this.Name = '';
-    this.RelationId = 1;
-    this.YearOfBirth = 1980;
-    this.CareerTypeId = 1;
-    this.EthnicId = 1;
-    this.ReligionId = 1;
-    this.NationalityId = 1;
-    this.PhoneNumber = '';
-    this.Email = '';
-    this.Address = '';
+  constructor(member: FamilyMember) {
+    if (member) {
+      this.Id = member.Id;
+      this.Name = member.Name;
+      this.RelationId = member.RelationId;
+      this.YearOfBirth = member.YearOfBirth;
+      this.CareerTypeId = member.CareerTypeId;
+      this.EthnicId = member.EthnicId;
+      this.ReligionId = member.ReligionId;
+      this.NationalityId = member.NationalityId;
+      this.PhoneNumber = member.PhoneNumber;
+      this.Email = member.Email;
+      this.Address = member.Address;
+    } else {
+      this.Id = 0;
+      this.Name = '';
+      this.RelationId = 1;
+      this.YearOfBirth = 1980;
+      this.CareerTypeId = 1;
+      this.EthnicId = 1;
+      this.ReligionId = 1;
+      this.NationalityId = 1;
+      this.PhoneNumber = '';
+      this.Email = '';
+      this.Address = '';
+    }
   }
 }
 

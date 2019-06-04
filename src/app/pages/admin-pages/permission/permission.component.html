@@ -44,14 +44,14 @@
           <table class="table align-items-center table-bordered">
             <thead class="thead-light">
             <tr>
-              <th scope="col">Tên màn hình/Chức năng</th>
+              <th scope="col">Tên màn hình</th>
               <th scope="col">Mô tả chức năng</th>
               <th scope="col">Trạng thái</th>
             </tr>
             </thead>
             <tbody *ngFor="let screen of screens">
             <tr>
-              <th scope="colgroup" rowspan="3">
+              <th scope="colgroup" [rowSpan]="screen.Permissions.length+1">
                 <div class="media align-items-center">
                   <div class="media-body">
                     <span class="text-uppercase font-weight-bold">{{screen.Name}}</span>
@@ -63,13 +63,10 @@
               <th scope="row">
                 <div class="media align-items-center">
                   <div class="media-body">
-                    <span class="mb-0 ml-lg-3 text-sm">{{permission.FunctionName}}</span>
+                    <span class="mb-0 text-sm">{{permission.FunctionName}}</span>
                   </div>
                 </div>
               </th>
-              <td>
-                {{permission.FunctionDescription}}
-              </td>
               <td>
                 <label class="custom-toggle">
                   <input type="checkbox" [(ngModel)]="permission.IsActived" (change)="onPermissionChang(permission)">

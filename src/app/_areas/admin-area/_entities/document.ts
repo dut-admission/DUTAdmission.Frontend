@@ -1,10 +1,15 @@
-export class Document {
+export class StudentDoc {
   Id: number;
   FirstName: string;
   LastName: string;
   IdentityNumber: string;
   ClassId: number;
   ClassName: string;
+  Documents: Document[];
+}
+
+export class Document {
+  Id: number;
   DocumentTypeId: number;
   DocumentTypeName: string;
   Description: string;
@@ -18,11 +23,6 @@ export class Document {
   constructor(doc: Document) {
     if (doc) {
       this.Id = doc.Id;
-      this.FirstName = doc.FirstName;
-      this.LastName = doc.LastName;
-      this.IdentityNumber = doc.IdentityNumber;
-      this.ClassId = doc.ClassId;
-      this.ClassName = doc.ClassName;
       this.DocumentTypeId = doc.DocumentTypeId;
       this.DocumentTypeName = doc.DocumentTypeName;
       this.Description = doc.Description;
@@ -34,11 +34,6 @@ export class Document {
       this.StatusName = doc.StatusName;
     } else {
       this.Id = 0;
-      this.FirstName = '';
-      this.LastName = '';
-      this.IdentityNumber = '';
-      this.ClassId = 1;
-      this.ClassName = '';
       this.DocumentTypeId = 1;
       this.DocumentTypeName = '';
       this.Description = '';

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../_areas/auth-area/_services/authentication.service';
 import {ForgetPassword} from '../../../_areas/auth-area/_entities/forget-password';
-import {ToastrService} from 'ngx-toastr';
+import {SharedService} from '../../../_core/shared.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -13,8 +13,7 @@ export class ForgetPasswordComponent implements OnInit {
   forgetPassword: ForgetPassword;
 
   constructor(private authenticationService: AuthenticationService,
-              private toastr: ToastrService,
-              private router: Router) {
+              private sharedService: SharedService) {
     this.forgetPassword = new ForgetPassword();
   }
 
@@ -23,17 +22,15 @@ export class ForgetPasswordComponent implements OnInit {
 
   getNewPassword() {
     if (this.isValidated()) {
+      this.sharedService.emitChange(true);
       this.authenticationService.getPassword(this.forgetPassword).subscribe(
         value => {
-          this.toastr.success('Mật khẩu mới của bạn đã được gửi về email của bạn.', 'Lấy mật khẩu mới thành công', {
-            timeOut: 4000,
-            closeButton: true,
-            positionClass: 'toast-top-center',
-            enableHtml: true
-          });
+          this.sharedService.emitChange(false);
+          this.sharedService.notifySuccess('Mật khẩu mới của bạn đã được gửi về email của bạn.');
         },
         error => {
-          this.notifyErrorMessage(error['error']['Message']);
+          this.sharedService.emitChange(false);
+          this.sharedService.notifyError(error['error']);
         }
       );
     }
@@ -47,25 +44,9 @@ export class ForgetPasswordComponent implements OnInit {
     return text !== undefined && text !== null && text !== '';
   }
 
-  notifyErrorMessage(message: string) {
-    this.toastr.clear();
-    this.toastr.error(`<div class="text-center">${message}</div>`, 'Thông báo', {
-      timeOut: 4000,
-      closeButton: true,
-      positionClass: 'toast-top-center',
-      enableHtml: true
-    });
-  }
-
   notifyInvalidData() {
-    this.toastr.clear();
     if (!this.isValidated()) {
-      this.toastr.error(`<span class="now-ui-icons ui-1_bell-53"></span>Username và Email không được bỏ trống!.`, 'Thông báo', {
-        timeOut: 4000,
-        closeButton: true,
-        enableHtml: true,
-        positionClass: 'toast-top-center'
-      });
+      this.sharedService.notifyError('Username và Email không được bỏ trống!.');
     }
   }
 }
