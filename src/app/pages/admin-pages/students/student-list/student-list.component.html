@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="header-body">
       <!-- Card stats -->
-      <div class="row">
+      <div  class="row">
         <div class="col">
           <div class="card shadow border-0">
             <div class="card-header">
@@ -14,38 +14,37 @@
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>Tên sinh viên</label>
-                      <input type="text" class="form-control" placeholder="Tên sinh viên" value="Trinh Minh An">
+                      <input type="text" class="form-control" placeholder="Tên sinh viên"  />
                     </div>
                   </div>
                   <div class="col-md-6 pr-1">
-                    <div class="form-group">
+                    <div  class="form-group">
                       <label>Chương trình</label>
-                      <select class="form-control">
-                        <option>Tiên tiến ECE</option>
-                        <option>Việt Pháp PFIEV</option>
-                        <option>Chất lượng cao CLC</option>
+                      <select   class="form-control"    (change)="ChangeProgram($event)">
+                        <option *ngFor="let program of educationProgramList"   value="{{program.Id}}"  >{{program.Name}}</option>
+
                       </select>
+
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>Ngành</label>
-                      <select class="form-control">
-                        <option>Tự động hóa</option>
-                        <option>Điện dân dụng</option>
-                        <option>Điện công nghiệp</option>
+                      <select  class="form-control"  (change)="ChangeDepartment($event)">
+                        <option *ngFor="let department of departmentList" value="{{department.Id}}">{{department.Name}}</option>
+
                       </select>
                     </div>
                   </div>
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>Lớp</label>
-                      <select class="form-control">
-                        <option>14T1</option>
-                        <option>14T2</option>
-                        <option>14T3</option>
+                      <select  class="form-control" >
+                        <option *ngFor="let class of classList" >{{class.Name}}</option>
+
                       </select>
                     </div>
                   </div>
@@ -54,10 +53,8 @@
                   <div class="col-md-6"></div>
                   <div class="col-md-6 pr-1">
                     <div class="form-group group-function">
-                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
-                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
-                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
-                      <button class="btn btn-md btn-primary">Tìm kiếm</button>
+
+                      <button class="btn btn-md btn-primary dut-search" (click)="SearchStudentList(condition)">Tìm kiếm</button>
                     </div>
                   </div>
                 </div>

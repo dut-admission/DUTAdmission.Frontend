@@ -23,7 +23,7 @@ export class TuitionTypeListComponent implements OnInit {
         this.tuition_type_list = result;
       },
         error1 => {
-        alert('Get tuition type error !!');
+          this.sharedService.notifyError('Có vấn đề xảy ra. Vui lòng thử lại sau.');
       }
     );
   }

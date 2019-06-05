@@ -57,3 +57,24 @@ export class BasicStudent {
     }
   }
 }
+
+export class ConditionStudentManagement {
+  NameStudent: string;
+  Program: number;
+  Nganh: number;
+  Lop: number;
+
+  constructor(conditionStudentManagement: ConditionStudentManagement) {
+    if (conditionStudentManagement) {
+      this.NameStudent = conditionStudentManagement.NameStudent;
+      this.Program = conditionStudentManagement.Program;
+      this.Nganh = conditionStudentManagement.Nganh;
+      this.Lop = conditionStudentManagement.Lop;
+    } else {
+      this.NameStudent = '';
+      this.Program = 0;
+      this.Nganh = 0;
+      this.Lop = 0;
+    }
+  }
+}
