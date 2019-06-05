@@ -19,6 +19,7 @@ import {HttpErrorInterceptor} from './_core/http-error.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {NgxLoadingModule} from 'ngx-loading';
 import {JwtInterceptor} from './_core/jwt.interceptor';
+import { AddTuitionTypeComponent } from './pages/admin-pages/tuition-type/add-tuition-type/add-tuition-type.component';
 
 
 
@@ -42,6 +43,7 @@ import {JwtInterceptor} from './_core/jwt.interceptor';
     AdminLayoutComponent,
     AuthLayoutComponent,
     PublicLayoutComponent,
+    AddTuitionTypeComponent,
 
   ],
   providers: [
