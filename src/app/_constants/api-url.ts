@@ -20,7 +20,13 @@ export const enum API_URL {
   TUITION_TYPE_DELETE= 'http://localhost:62025/api/admin/tuition-type/delete/',
 
   EDUCATION_PROGRAM = 'http://localhost:62025/api/admin/tuition/libraries',
-  STUDENT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/student'
+  STUDENT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/student',
+
+  ACCOUNT_GROUP_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/account-group',
+  ACCOUNT_GROUP_MANEGEMENT_ADD = 'http://localhost:62025/api/admin/group-account/add',
+  ACCOUNT_GROUP_MANEGEMENT_EDIT = 'http://localhost:62025/api/admin/account-group'
+
+  
 
 
 
