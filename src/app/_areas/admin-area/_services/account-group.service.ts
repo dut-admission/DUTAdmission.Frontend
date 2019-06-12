@@ -32,10 +32,10 @@ export class AccountGroupService {
     return this.http.put(url, accountGroup, httpOptions);
   }
 
-  // delete(id: number): Observable<any> {
-  //   const url =   API_URL.TUITION_TYPE_DELETE + `${id}`    ;
-  //   return this.http.delete(url, httpOptions);
-  // }
+  delete(id: number): Observable<any> {
+    const url =   API_URL.ACCOUNT_GROUP_MANEGEMENT_DELETE + `${id}` ;
+    return this.http.delete(url, httpOptions);
+  }
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

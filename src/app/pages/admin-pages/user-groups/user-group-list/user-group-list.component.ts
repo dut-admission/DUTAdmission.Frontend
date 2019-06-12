@@ -71,4 +71,19 @@ export class UserGroupListComponent implements OnInit {
 
 
   }
+
+  deleteGroupAccount(id: number) {
+    this.sharedService.emitChange(true);
+    this.groupService.delete(id).subscribe(
+      result => {
+        this.groups = this.groups.filter(x => x.Id !== id);
+        this.sharedService.dismissAll();
+        this.sharedService.emitChange(false);
+        this.sharedService.notifySuccess('Xóa thành công');
+      },
+      error1 => {
+        this.sharedService.notifyError('Có vấn đề xảy ra. Vui lòng thử lại sau.');
+        this.sharedService.emitChange(false);
+      });
+  }
 }
