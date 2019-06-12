@@ -27,7 +27,10 @@ export const enum API_URL {
   ACCOUNT_GROUP_MANEGEMENT_EDIT = 'http://localhost:62025/api/admin/account-group',
   ACCOUNT_GROUP_MANEGEMENT_DELETE = 'http://localhost:62025/api/admin/account-group/delete/',
 
-  
+  CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact-messager',
+  STATUS_CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact/status-list',
+
+
 
 
 
