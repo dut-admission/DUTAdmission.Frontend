@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SharedService} from '../../../../_core/shared.service';
 import {ContactService} from '../../../../_areas/admin-area/_services/contact.service';
-import {Contact} from '../../../../_areas/admin-area/_entities/contact';
+import {Contact, ReplyContactMessage} from '../../../../_areas/admin-area/_entities/contact';
 import {Status} from '../../../../_areas/admin-area/_entities/status';
 import {BasicStudent} from '../../../../_areas/admin-area/_entities/basic-student';
 
@@ -13,7 +13,7 @@ import {BasicStudent} from '../../../../_areas/admin-area/_entities/basic-studen
 export class ContactListComponent implements OnInit {
 
   contacts: Contact[] = [];
-  msg: string;
+  msgSendMail: ReplyContactMessage;
   id: number;
   newContact: Contact;
   status: Status[] = [{Id: 0, Name: 'All'}];
@@ -23,7 +23,7 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit() {
     this.id = 0;
-    this.msg = '';
+    this.msgSendMail = new ReplyContactMessage(null);
     this.contactService.getAllContact().subscribe(
 
       result => {
@@ -50,7 +50,8 @@ export class ContactListComponent implements OnInit {
     this.sharedService.openFormModal(content, 'lg');
   }
 
-  Send(msg: string) {
+  Send(msg: ReplyContactMessage) {
+    this.sharedService.emitChange(true);
     const Id = this.id;
     this.contactService.send(msg, Id ).subscribe(
 
@@ -58,6 +59,7 @@ export class ContactListComponent implements OnInit {
         const index = this.contacts.findIndex(x => x.Id === Id);
         this.contacts[index].StatusId = 3;
         this.sharedService.notifySuccess('Gửi mail thành công');
+        this.sharedService.emitChange(false);
       },
       error1 => {
         this.sharedService.notifyError('Có vấn đề xảy ra. Vui lòng thử lại sau.');

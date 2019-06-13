@@ -21,3 +21,15 @@ export class Contact {
     }
   }
 }
+
+export class ReplyContactMessage {
+  ResponseMessage: string;
+  constructor(msg: string ) {
+    if (msg) {
+      this.ResponseMessage = msg;
+    } else {
+      this.ResponseMessage  = '';
+    }
+
+  }
+}
