@@ -92,8 +92,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item" (click)="openModalDetail(contactDetail, contacts)" href="javascript:void(0)">Xem chi tiết</a>
-                    <a class="dropdown-item" (click)="deleteStudent(student)" href="javascript:void(0)">Xóa thông tin</a>
+                    <a class="dropdown-item" (click)="openModalDetail(contactDetail,contact.Id)" href="javascript:void(0)">Gửi mail</a>
                   </div>
                 </div>
               </td>
@@ -113,101 +112,22 @@
                 <div class="card-body px-lg-5 py-lg-5">
                   <form role="form">
                     <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="FirstName">Họ và tên</label>
-                          <input type="text" id="FirstName"
-                                 class="form-control form-control-alternative" name="FirstName"
-                                 placeholder="Họ" [(ngModel)]="student.FirstName">
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="LastName">Tên</label>
-                          <input type="text" id="LastName"
-                                 class="form-control form-control-alternative" name="LastName"
-                                 placeholder="Tên" [(ngModel)]="student.LastName">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="IdentityNumber">Số CMND</label>
-                          <input type="text" id="IdentityNumber"
-                                 class="form-control form-control-alternative" name="IdentityNumber"
-                                 placeholder="Số chứng minh nhân dân" [(ngModel)]="student.IdentityNumber">
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DateOfBirth">Ngày sinh</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                            </div>
-                            <input class="form-control datepicker" placeholder="Select date"
-                                   name="DateOfBirth" id="DateOfBirth"
-                                   [(ngModel)]="student.DateOfBirth"
-                                   ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()"
-                                   (focus)="focus2=true" (blur)="focus2=false" type="text"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="ClassId">Lớp</label>
-                          <select class="form-control form-control-alternative"
-                                  name="ClassId"
-                                  id="ClassId" [(ngModel)]="student.ClassId">
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="DepartmentId">Ngành</label>
-                          <select class="form-control form-control-alternative"
-                                  name="DepartmentId"
-                                  id="DepartmentId" [(ngModel)]="student.DepartmentId">
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="PhoneNumber">Số điện thoại</label>
-                          <input class="form-control form-control-alternative"
-                                 name="PhoneNumber" type="text"
-                                 id="PhoneNumber" [(ngModel)]="student.PhoneNumber"/>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label class="form-control-label" for="Email">Số điện thoại</label>
-                          <input class="form-control form-control-alternative"
-                                 name="Email" type="text"
-                                 id="Email" [(ngModel)]="student.Email"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
                       <div class="col-lg-12">
                         <div class="form-group">
-                          <label class="form-control-label" for="Address">Địa chỉ</label>
-                          <input class="form-control form-control-alternative"
-                                 name="Address" type="text"
-                                 id="Address" [(ngModel)]="student.Address"/>
+                          <label class="form-control-label" for="FirstName">Nội dung phản hồi</label>
+                          <input type="text" id="FirstName"
+                                 class="form-control form-control-alternative" name="FirstName"
+                                 placeholder="Nội dung" [(ngModel)]="msg" >
                         </div>
                       </div>
+
                     </div>
+
                   </form>
                 </div>
                 <div class="card-footer">
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary my-4" >Lưu lại</button>
+                    <button type="button" (click)="Send(msg)" class="btn btn-primary my-4" >Gửi mail</button>
                     <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
                             (click)="c('Close click')">Close
                     </button>

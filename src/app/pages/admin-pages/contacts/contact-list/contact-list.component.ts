@@ -3,6 +3,7 @@ import {SharedService} from '../../../../_core/shared.service';
 import {ContactService} from '../../../../_areas/admin-area/_services/contact.service';
 import {Contact} from '../../../../_areas/admin-area/_entities/contact';
 import {Status} from '../../../../_areas/admin-area/_entities/status';
+import {BasicStudent} from '../../../../_areas/admin-area/_entities/basic-student';
 
 @Component({
   selector: 'app-contact-list',
@@ -12,6 +13,8 @@ import {Status} from '../../../../_areas/admin-area/_entities/status';
 export class ContactListComponent implements OnInit {
 
   contacts: Contact[] = [];
+  msg: string;
+  id: number;
   newContact: Contact;
   status: Status[] = [{Id: 0, Name: 'All'}];
 
@@ -19,6 +22,8 @@ export class ContactListComponent implements OnInit {
               private sharedService: SharedService) { }
 
   ngOnInit() {
+    this.id = 0;
+    this.msg = '';
     this.contactService.getAllContact().subscribe(
 
       result => {
@@ -38,6 +43,26 @@ export class ContactListComponent implements OnInit {
       }
     );
 
+  }
+
+  openModalDetail(content, Id: number) {
+    this.id = Id;
+    this.sharedService.openFormModal(content, 'lg');
+  }
+
+  Send(msg: string) {
+    const Id = this.id;
+    this.contactService.send(msg, Id ).subscribe(
+
+      result => {
+        const index = this.contacts.findIndex(x => x.Id === Id);
+        this.contacts[index].StatusId = 3;
+        this.sharedService.notifySuccess('Gửi mail thành công');
+      },
+      error1 => {
+        this.sharedService.notifyError('Có vấn đề xảy ra. Vui lòng thử lại sau.');
+        this.sharedService.emitChange(false);
+      });
   }
 
 }
