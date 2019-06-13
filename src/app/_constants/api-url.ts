@@ -30,6 +30,8 @@ export const enum API_URL {
   CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact-messager',
   STATUS_CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact/status-list',
 
+  CONTACT_MANEGEMENT_SEND = 'http://localhost:62025/api/admin/contact-messager/',
+
 
 
 
