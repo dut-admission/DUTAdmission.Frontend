@@ -24,6 +24,7 @@ import {DocumentTypeListComponent} from '../../pages/admin-pages/documents-type/
 import {TuitionTypeListComponent} from '../../pages/admin-pages/tuition-type/tuition-type-list/tuition-type-list.component';
 import {NewsListComponent} from '../../pages/admin-pages/news/news-list/news-list.component';
 import {ContactListComponent} from '../../pages/admin-pages/contacts/contact-list/contact-list.component';
+import { SettingSystemComponent } from '../../pages/admin-pages/setting-system/setting-system.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import {ContactListComponent} from '../../pages/admin-pages/contacts/contact-lis
     DocumentTypeListComponent,
     TuitionTypeListComponent,
     NewsListComponent,
-    ContactListComponent
+    ContactListComponent,
+    SettingSystemComponent,
   ]
 })
 
