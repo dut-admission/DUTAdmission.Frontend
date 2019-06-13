@@ -5,6 +5,8 @@ import {Achievement, FamilyMember, HighSchoolResult, StudentProfile} from '../_e
 import {API_URL} from '../../../_constants/api-url';
 import {ProfileLibrary} from '../_entities/profile-library';
 import {httpOptions} from '../../../_constants/http-option';
+import {Password} from '../_entities/password';
+import {DeleteObject} from '../_entities/delete-object';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +27,24 @@ export class StudentProfileService {
   saveFamilyMemeber(newMember: FamilyMember): Observable<any> {
     return this.http.post<any>(API_URL.PROFILE_SAVE_MEMBER, newMember, httpOptions);
   }
+
   saveLearningResult(newResult: HighSchoolResult): Observable<any> {
     return this.http.post<any>(API_URL.PROFILE_SAVE_RESULT, newResult, httpOptions);
   }
+
   saveAchievement(newAchievement: Achievement): Observable<any> {
     return this.http.post<any>(API_URL.PROFILE_SAVE_ACHIEVEMENT, newAchievement, httpOptions);
   }
 
+  saveProfile(profile: StudentProfile): Observable<any> {
+    return this.http.put<any>(API_URL.PROFILE_SAVE_PROFILE, profile, httpOptions);
+  }
+
+  changePassword(password: Password): Observable<any> {
+    return this.http.put<any>(API_URL.PROFILE_CHANGE_PASSWORD, password, httpOptions);
+  }
+
+  deleteObject(object: DeleteObject): Observable<any> {
+    return this.http.post<any>(API_URL.PROFILE_DELETE_OBJECT, object, httpOptions);
+  }
 }

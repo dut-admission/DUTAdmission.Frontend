@@ -17,7 +17,7 @@
         <div class="px-4">
           <div class="text-center mt-5">
             <h3>
-              Quản lý thông tin học phí
+              Thông tin học phí
             </h3>
           </div>
           <hr class="my-4"/>
@@ -28,25 +28,25 @@
                   <thead class="thead-light">
                   <tr>
                     <th scope="col">Loại chi phí</th>
-                    <th scope="col">Số tiền</th>
+                    <th scope="col" class="text-right">Số tiền</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                     <th>Học phí học kì 1</th>
-                    <td>{{tuition.TuitionFee}}</td>
+                    <td class="text-right">{{tuition.TuitionFee | currency:'4.2-2':'VND '}}</td>
                   </tr>
                   <tr *ngFor="let type of tuition.TuitionTypes">
                     <th scope="row">
                       {{type.Name}}
                     </th>
-                    <td>
-                      {{type.Money}}
+                    <td class="text-right">
+                      {{type.Money | currency:'4.2-2':'VND '}}
                     </td>
                   </tr>
                   <tr>
-                    <td>Tổng học phí học kì 1</td>
-                    <td>{{tuition.TotalOfFee}}</td>
+                    <th scope="row">Tổng các chi phí cần nộp</th>
+                    <td class="text-right font-weight-bold">{{tuition.TotalOfFee | currency:'4.2-2':'VND '}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -55,11 +55,27 @@
           </div>
           <div class="mt-5 py-5 border-top text-center">
             <div class="row justify-content-center">
-              <button class="btn btn-outline-primary" href="javascript:void(0)">Nhận mã chuyển khoản học phí</button>
+              <button class="btn btn-primary" href="javascript:void(0)" (click)="getTransferSyntax(TransferModal)">Nhận mã chuyển khoản học phí</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <ng-template #TransferModal let-c="close" let-d="dismiss">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-white pb-0">
+            <div class="text-muted text-center">
+              <h3>Mã chuyển khoản học phí</h3>
+            </div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <h1>BKDN_2019_102140055_AN_TRINH</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </main>

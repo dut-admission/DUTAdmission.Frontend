@@ -5,7 +5,7 @@ export class StudentDoc {
   IdentityNumber: string;
   ClassId: number;
   ClassName: string;
-  Documents: Document[];
+  DocumentInfoes: Document[];
 }
 
 export class Document {

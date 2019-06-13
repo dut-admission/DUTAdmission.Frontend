@@ -7,7 +7,7 @@
     </button>
     <!-- Brand -->
     <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
-      <img src="./assets/img/brand/red.png" class="navbar-brand-img" alt="...">
+      <img src="../../../assets/img/brand/argon-white.png" class="navbar-brand-img" alt="...">
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
@@ -65,7 +65,7 @@
         <div class="row">
           <div class="col-6 collapse-brand">
             <a routerLinkActive="active" [routerLink]="['/dashboard']">
-              <img src="./assets/img/brand/blue.png">
+              <img src="../../../assets/img/brand/blue.png">
             </a>
           </div>
           <div class="col-6 collapse-close">
@@ -135,66 +135,56 @@
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-3">
         <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">
-            <i class="ni ni-notification-70"></i>Quản lý loại giấy tờ
+          <a class="nav-link" routerLink="/admin/document-types">
+            <i class="ni ni-building"></i>Quản lý loại giấy tờ
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors">
-            <i class="ni ni-notification-70"></i>Quản lý loại tiền
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts">
-            <i class="ni ni-ui-04"></i> Components
+          <a class="nav-link" routerLink="/admin/tuition-types">
+            <i class="fa fa-money"></i>Quản lý loại tiền
           </a>
         </li>
       </ul>
       <!-- Divider -->
-      <hr class="my-3">
+<!--      <hr class="my-3">-->
       <!-- Heading -->
-      <h6 class="navbar-heading text-muted">System Configuration</h6>
-      <!-- Navigation -->
-      <ul class="navbar-nav mb-md-3">
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">
-            <i class="ni ni-notification-70"></i> Thông tin/Thông báo
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">
-            <i class="ni ni-chat-round"></i> Phản hồi từ người dùng
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors">
-            <i class="ni ni-building"></i> Thông tin trường
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors">
-            <i class="ni ni-chart-pie-35"></i> Phân tích, thống kê
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts">
-            <i class="ni ni-settings-gear-65"></i> Cấu hình hệ thống
-          </a>
-        </li>
-      </ul>
+<!--      <h6 class="navbar-heading text-muted">Hệ thống</h6>-->
+<!--      &lt;!&ndash; Navigation &ndash;&gt;-->
+<!--      <ul class="navbar-nav mb-md-3">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">-->
+<!--            <i class="ni ni-notification-70"></i> Thông tin/Thông báo-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">-->
+<!--            <i class="ni ni-chat-round"></i> Phản hồi từ người dùng-->
+<!--          </a>-->
+<!--        </li>-->
+<!--&lt;!&ndash;        <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/colors">&ndash;&gt;-->
+<!--&lt;!&ndash;            <i class="ni ni-chart-pie-35"></i> Phân tích, thống kê&ndash;&gt;-->
+<!--&lt;!&ndash;          </a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </li>&ndash;&gt;-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts">-->
+<!--            <i class="ni ni-settings-gear-65"></i> Cấu hình hệ thống-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
       <!-- Divider -->
       <hr class="my-3">
       <!-- Heading -->
-      <h6 class="navbar-heading text-muted">Demo page</h6>
+<!--      <h6 class="navbar-heading text-muted">Demo page</h6>-->
       <!-- Navigation -->
-      <ul class="navbar-nav">
-        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-          <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
-            <i class="ni {{menuItem.icon}}"></i>
-            {{menuItem.title}}
-          </a>
-        </li>
-      </ul>
+<!--      <ul class="navbar-nav">-->
+<!--        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">-->
+<!--          <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">-->
+<!--            <i class="ni {{menuItem.icon}}"></i>-->
+<!--            {{menuItem.title}}-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
     </div>
   </div>
 </nav>
