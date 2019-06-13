@@ -24,6 +24,7 @@ import { AddTuitionTypeComponent } from './pages/admin-pages/tuition-type/add-tu
 
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -44,6 +45,7 @@ import { AddTuitionTypeComponent } from './pages/admin-pages/tuition-type/add-tu
     AuthLayoutComponent,
     PublicLayoutComponent,
     AddTuitionTypeComponent,
+
 
   ],
   providers: [

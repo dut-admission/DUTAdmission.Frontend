@@ -31,6 +31,7 @@ export const enum API_URL {
   STATUS_CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact/status-list',
 
   CONTACT_MANEGEMENT_SEND = 'http://localhost:62025/api/admin/contact-messager/',
+  SETTING_SYSTEM = 'http://localhost:62025/api/public/university-info',
 
 
 
