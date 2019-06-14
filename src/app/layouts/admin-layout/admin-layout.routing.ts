@@ -33,6 +33,8 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'admin/tuition-type', component: TuitionTypeListComponent},
   {path: 'admin/news', component: NewsListComponent},
   {path: 'admin/contacts', component: ContactListComponent},
+  {path: 'admin/tuition-types', component: TuitionTypeListComponent},
+  {path: 'admin/document-types', component: DocumentTypeListComponent},
   {path: 'admin/setting', component: SettingSystemComponent},
 
 

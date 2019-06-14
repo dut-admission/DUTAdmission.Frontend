@@ -92,14 +92,20 @@ export class AdmissionDocsComponent implements OnInit {
   }
 
   onUpload() {
+    this.sharedService.emitChange(true);
     this.admissionService.uploadDocument(this.file).subscribe(
       value => {
+        this.sharedService.emitChange(false);
         this.documents.find(doc => doc.Id === this.file.DocumentId).Url = value;
         this.modalService.dismissAll();
         this.toastr.success('Tải file thành công.');
+        this.sharedService.dismissAll();
       },
       error => {
-        console.log(error);
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError('Có lỗi xảy ra. Vui lòng thử lại sau.');
+        this.sharedService.dismissAll();
+
       }
     );
     console.log(this.file);

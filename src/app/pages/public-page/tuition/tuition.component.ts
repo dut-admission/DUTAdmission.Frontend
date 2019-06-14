@@ -32,4 +32,7 @@ export class TuitionComponent implements OnInit {
     );
   }
 
+  getTransferSyntax(content) {
+    this.sharedService.openFormModal(content, 'sm');
+  }
 }

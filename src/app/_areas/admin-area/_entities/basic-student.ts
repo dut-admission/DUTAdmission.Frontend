@@ -1,5 +1,6 @@
 export class BasicStudent {
   Id: number;
+  IdentificationNumber: string;
   FirstName: string;
   LastName: string;
   IdentityNumber: string;
@@ -20,6 +21,7 @@ export class BasicStudent {
   constructor(student: BasicStudent) {
     if (student) {
       this.Id = student.Id;
+      this.IdentificationNumber = student.IdentificationNumber;
       this.FirstName = student.FirstName;
       this.LastName = student.LastName;
       this.IdentityNumber = student.IdentityNumber;
@@ -38,6 +40,7 @@ export class BasicStudent {
       this.ProgramName = student.ProgramName;
     } else {
       this.Id = 0;
+      this.IdentificationNumber = '';
       this.FirstName = '';
       this.LastName = '';
       this.IdentityNumber = '';
@@ -54,27 +57,6 @@ export class BasicStudent {
       this.FacultyName = '';
       this.ProgramId = 1;
       this.ProgramName = '';
-    }
-  }
-}
-
-export class ConditionStudentManagement {
-  NameStudent: string;
-  Program: number;
-  Nganh: number;
-  Lop: number;
-
-  constructor(conditionStudentManagement: ConditionStudentManagement) {
-    if (conditionStudentManagement) {
-      this.NameStudent = conditionStudentManagement.NameStudent;
-      this.Program = conditionStudentManagement.Program;
-      this.Nganh = conditionStudentManagement.Nganh;
-      this.Lop = conditionStudentManagement.Lop;
-    } else {
-      this.NameStudent = '';
-      this.Program = 0;
-      this.Nganh = 0;
-      this.Lop = 0;
     }
   }
 }

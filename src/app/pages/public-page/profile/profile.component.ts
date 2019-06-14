@@ -6,9 +6,8 @@ import {NgbDateAdapter, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap
 import {NgbDateCustomParserFormatter} from '../../../_core/dateformat';
 import {NgbDateCustomAdapter} from '../../../_core/date-adapter';
 import {SharedService} from '../../../_core/shared.service';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {element} from 'protractor';
-import {ninvoke} from 'q';
+import {Password} from '../../../_areas/public-area/_entities/password';
+import {DeleteObject} from '../../../_areas/public-area/_entities/delete-object';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +23,7 @@ export class ProfileComponent implements OnInit {
   newMember: FamilyMember;
   newLearningResult: HighSchoolResult;
   newAchievement: Achievement;
+  password: Password;
 
   constructor(private profileService: StudentProfileService,
               private sharedService: SharedService) {
@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
     this.newMember = new FamilyMember(null);
     this.newAchievement = new Achievement();
     this.newLearningResult = new HighSchoolResult(null);
+    this.password = new Password();
   }
 
   ngOnInit() {
@@ -56,7 +57,16 @@ export class ProfileComponent implements OnInit {
 
   SaveProfile() {
     this.sharedService.emitChange(true);
-    console.log(this.profile);
+    this.profileService.saveProfile(this.profile).subscribe(
+      value => {
+        this.sharedService.emitChange(false);
+        this.sharedService.notifySuccess('Cập nhật thông tin thành công.');
+      },
+      error => {
+        this.sharedService.emitChange(false);
+        this.sharedService.notifyError(error.toString());
+      }
+    );
   }
 
   saveFamilyMember() {
@@ -91,11 +101,11 @@ export class ProfileComponent implements OnInit {
         this.sharedService.emitChange(false);
         this.sharedService.dismissAll();
         this.sharedService.notifySuccess('Lưu thông tin học lực thành công.');
-        if (this.newMember.Id === 0) {
-          this.profile.HightSchoolInfo.HighSchoolResults.push(this.newLearningResult);
+        if (this.newLearningResult.Id === 0) {
+          this.profile.HightSchoolInfo.HighSchoolResults.push(value);
         } else {
           const index = this.profile.HightSchoolInfo.HighSchoolResults.findIndex(member => member.Id === this.newLearningResult.Id);
-          this.profile.HightSchoolInfo.HighSchoolResults[index] = new HighSchoolResult(this.newLearningResult);
+          this.profile.HightSchoolInfo.HighSchoolResults[index] = value;
         }
       },
       error => {
@@ -135,7 +145,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.newLearningResult = new HighSchoolResult(null);
     }
-    this.sharedService.openFormModal(content, 'lg');
+    this.sharedService.openFormModal(content, 'sm');
   }
 
   openModalForNewAchievement(content, achievement) {
@@ -147,4 +157,64 @@ export class ProfileComponent implements OnInit {
     }
     this.sharedService.openFormModal(content, 'sm');
   }
+
+  changePassword() {
+    if (this.password.new_password !== this.password.renew_password) {
+      this.sharedService.notifyError('Nhập lại mật khẩu không trùng khớp.');
+    } else {
+      this.profileService.changePassword(this.password).subscribe(
+        value => {
+          this.sharedService.notifySuccess('Đổi mật khẩu thành công.');
+          this.sharedService.dismissAll();
+        },
+        error => {
+          this.sharedService.notifyError('Mật khẩu cũ không chính xác.');
+        }
+      );
+    }
+  }
+
+  openModalChangePassword(content) {
+    this.password = new Password();
+    this.sharedService.openFormModal(content, 'sm');
+  }
+
+  deleteFamilyMember(id: number) {
+    const object = new DeleteObject(id, 1);
+    this.profileService.deleteObject(object).subscribe(
+      value => {
+        this.profile.FamilyMembers = this.profile.FamilyMembers.filter(x => x.Id !== id);
+        this.sharedService.notifySuccess('Đã xóa thành công.');
+      },
+      error => {
+        this.sharedService.notifyError('Xóa ko thành công.');
+      }
+    );
+  }
+
+  deleteHighSchoolResult(id: number) {
+    const object = new DeleteObject(id, 2);
+    this.profileService.deleteObject(object).subscribe(
+      value => {
+        this.profile.HightSchoolInfo.HighSchoolResults = this.profile.HightSchoolInfo.HighSchoolResults.filter(x => x.Id !== id);
+        this.sharedService.notifySuccess('Đã xóa thành công.');
+      },
+      error => {
+        this.sharedService.notifyError('Xóa ko thành công.');
+      }
+    );
+  }
+  deleteAchievement(id: number) {
+    const object = new DeleteObject(id, 0);
+    this.profileService.deleteObject(object).subscribe(
+      value => {
+        this.profile.HightSchoolInfo.Achievements = this.profile.HightSchoolInfo.Achievements.filter(x => x.Id !== id);
+        this.sharedService.notifySuccess('Đã xóa thành công.');
+      },
+      error => {
+        this.sharedService.notifyError('Xóa ko thành công.');
+      }
+    );
+  }
+
 }

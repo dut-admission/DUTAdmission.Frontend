@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-admission-forms',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmissionFormsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  downloadPDF(content) {
+    const doc = new jsPDF();
+    doc.addHTML(document.getElementById('admisionForm'), function () {
+      doc.save('obrz.pdf');
+    });
+  }
 }

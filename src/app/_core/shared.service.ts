@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {API_URL} from '../_constants/api-url';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,9 @@ export class SharedService {
   closeResult = '';
 
   constructor(private toastr: ToastrService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private http: HttpClient,
+              ) {
   }
 
   // Observable string sources
@@ -63,5 +67,9 @@ export class SharedService {
 
   dismissAll() {
     this.modalService.dismissAll();
+  }
+
+  getEducationProgram(): Observable<any> {
+    return this.http.get<any>(API_URL.EDUCATION_PROGRAM);
   }
 }

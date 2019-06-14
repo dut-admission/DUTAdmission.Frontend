@@ -67,7 +67,7 @@
             </span>
               <div class="media-body ml-2 d-none d-lg-block">
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">{{authenticationService.currentUserValue.first_name + " " + authenticationService.currentUserValue.last_name}}</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{authenticationService.currentUserValue.last_name + " " + authenticationService.currentUserValue.first_name}}</span>
                 </div>
               </div>
             </div>
@@ -78,15 +78,15 @@
             </div>
             <a routerLinkActive="active" href="javascript:void(0)" [routerLink]="['/profile']" class="dropdown-item">
               <i class="ni ni-single-02"></i>
-              <span>Quản lý thông tin cá nhân</span>
+              <span>Thông tin cá nhân</span>
             </a>
             <a routerLinkActive="active" href="javascript:void(0)" [routerLink]="['/admission/docs']" class="dropdown-item">
               <i class="ni ni-collection"></i>
-              <span>Quản lý giấy tờ liên quan</span>
+              <span>Thông tin giấy tờ</span>
             </a>
             <a routerLinkActive="active" href="javascript:void(0)" [routerLink]="['/tuition']" class="dropdown-item">
               <i class="fa fa-usd"></i>
-              <span>Quản lý các loại học phí</span>
+              <span>Thông tin học phí</span>
             </a>
             <div class="dropdown-divider"></div>
             <a (click)="logout()" class="dropdown-item" href="javascript:void(0)">
