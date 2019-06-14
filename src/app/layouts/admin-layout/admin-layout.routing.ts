@@ -15,6 +15,7 @@ import {DocumentTypeListComponent} from '../../pages/admin-pages/documents-type/
 import {TuitionTypeListComponent} from '../../pages/admin-pages/tuition-type/tuition-type-list/tuition-type-list.component';
 import {NewsListComponent} from '../../pages/admin-pages/news/news-list/news-list.component';
 import {ContactListComponent} from '../../pages/admin-pages/contacts/contact-list/contact-list.component';
+import {SettingSystemComponent} from '../../pages/admin-pages/setting-system/setting-system.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -34,6 +35,7 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'admin/contacts', component: ContactListComponent},
   {path: 'admin/tuition-types', component: TuitionTypeListComponent},
   {path: 'admin/document-types', component: DocumentTypeListComponent},
+  {path: 'admin/setting', component: SettingSystemComponent},
 
 
 ];

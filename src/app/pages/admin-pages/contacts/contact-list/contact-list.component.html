@@ -1,3 +1,168 @@
-<p>
-  contact-list works!
-</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div  class="row">
+        <div class="col">
+          <div class="card shadow border-0">
+            <div class="card-header">
+              <h4 class="card-title">Bộ lọc</h4>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Key Search</label>
+                      <input type="text" class="form-control" placeholder="Key Search"  />
+                    </div>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                    <div  class="form-group">
+                      <label>Trạng thái</label>
+                      <select   class="form-control"    >
+                        <option *ngFor="let sta of status"   value="{{sta.Id}}"  >{{sta.Name}}</option>
+
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group group-function">
+
+                      <button class="btn btn-md btn-primary dut-search" (click)="SearchStudentList(condition)">Tìm kiếm</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Danh sách phản hồi</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col-2">Tên người phản hồi</th>
+              <th scope="col-2">Email</th>
+              <th scope="col-4">Messege</th>
+              <th scope="col-2">Trạng thái</th>
+              <th scope="col-2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let contact of contacts">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{contact.FullName}}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{contact.Email}}
+              </td>
+              <td>
+                {{contact.Message}}
+              </td>
+              <td>
+                {{contact.StatusId}}
+              </td>
+
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" (click)="openModalDetail(contactDetail,contact.Id)" href="javascript:void(0)">Gửi mail</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #contactDetail let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Gửi phản hồi</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <form role="form">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                          <label class="form-control-label" for="FirstName">Nội dung phản hồi</label>
+                          <input type="text" id="FirstName"
+                                 class="form-control form-control-alternative" name="FirstName"
+                                 placeholder="Nội dung" [(ngModel)]="msgSendMail.ResponseMessage" >
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </form>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center">
+                    <button type="button" (click)="Send(msgSendMail)" class="btn btn-primary my-4" >Gửi mail</button>
+                    <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
+                            (click)="c('Close click')">Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

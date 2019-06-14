@@ -27,6 +27,17 @@ export const enum API_URL {
   STUDENT_MANEGEMENT_UPDATE = 'http://localhost:62025/api/admin/update-student',
   STUDENT_MANEGEMENT_DELETE = 'http://localhost:62025/api/admin/delete-student',
 
+  ACCOUNT_GROUP_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/account-group',
+  ACCOUNT_GROUP_MANEGEMENT_ADD = 'http://localhost:62025/api/admin/group-account/add',
+  ACCOUNT_GROUP_MANEGEMENT_EDIT = 'http://localhost:62025/api/admin/account-group',
+  ACCOUNT_GROUP_MANEGEMENT_DELETE = 'http://localhost:62025/api/admin/account-group/delete/',
+
+  CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact-messager',
+  STATUS_CONTACT_MANEGEMENT_LIST = 'http://localhost:62025/api/admin/contact/status-list',
+
+  CONTACT_MANEGEMENT_SEND = 'http://localhost:62025/api/admin/contact-messager/',
+  SETTING_SYSTEM = 'http://localhost:62025/api/public/university-info',
+
   EMPLOYEE_PROFILE = 'http://localhost:62025/api/admin/employee-profile',
   EMPLOYEE_UPDATE_PROFILE = 'http://localhost:62025/api/admin/employee-profile/update',
 
