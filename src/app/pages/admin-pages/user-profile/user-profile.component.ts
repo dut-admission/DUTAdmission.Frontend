@@ -18,6 +18,7 @@ import {StudentProfileService} from '../../../_areas/public-area/_services/stude
 export class UserProfileComponent implements OnInit {
   profile: EmployeeProfile;
   password: Password;
+  focus2: boolean;
 
   constructor(private employeeProfile: EmployeeProfileService,
               private sharedService: SharedService,
@@ -69,5 +70,9 @@ export class UserProfileComponent implements OnInit {
   openModalChangePassword(content) {
     this.password = new Password();
     this.sharedService.openFormModal(content, 'sm');
+  }
+
+  onDateSelection($event: UIEvent) {
+    
   }
 }

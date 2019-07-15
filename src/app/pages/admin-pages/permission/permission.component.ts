@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Permission, Screen} from '../../../_areas/admin-area/_entities/permission';
 import {PermissionService} from '../../../_areas/admin-area/_services/permission.service';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {SharedService} from '../../../_core/shared.service';
 
 @Component({
   selector: 'app-permission',
@@ -11,11 +12,14 @@ import {el} from '@angular/platform-browser/testing/src/browser_util';
 export class PermissionComponent implements OnInit {
   screens: Screen[] = [];
 
-  constructor(private permissionService: PermissionService) {
+  constructor(private permissionService: PermissionService,
+              private sharedService: SharedService,
+              ) {
   }
 
   ngOnInit() {
     this.screens = this.permissionService.getPermissions();
+    this.sharedService.notifyError('Tính năng đang phát triển.');
   }
 
   onPermissionChang(permission: Permission) {

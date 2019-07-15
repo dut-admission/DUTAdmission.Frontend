@@ -25,4 +25,7 @@ export class SettingSystemComponent implements OnInit {
     );
   }
 
+  SaveProfile() {
+
+  }
 }

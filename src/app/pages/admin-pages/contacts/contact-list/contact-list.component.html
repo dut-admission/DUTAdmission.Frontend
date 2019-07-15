@@ -13,29 +13,16 @@
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
-                      <label>Key Search</label>
-                      <input type="text" class="form-control" placeholder="Key Search"  />
-                    </div>
-                  </div>
-                  <div class="col-md-6 pr-1">
-                    <div  class="form-group">
-                      <label>Trạng thái</label>
-                      <select   class="form-control"    >
-                        <option *ngFor="let sta of status"   value="{{sta.Id}}"  >{{sta.Name}}</option>
-
-                      </select>
-
+                      <label>Từ khóa</label>
+                      <input type="text" class="form-control" placeholder="Email/Số ĐT"  />
                     </div>
                   </div>
                 </div>
-
-
                 <div class="row">
                   <div class="col-md-6"></div>
                   <div class="col-md-6 pr-1">
                     <div class="form-group group-function">
-
-                      <button class="btn btn-md btn-primary dut-search" (click)="SearchStudentList(condition)">Tìm kiếm</button>
+                      <button class="btn btn-md btn-primary dut-search">Tìm kiếm</button>
                     </div>
                   </div>
                 </div>
@@ -63,8 +50,7 @@
               <th scope="col-2">Tên người phản hồi</th>
               <th scope="col-2">Email</th>
               <th scope="col-4">Messege</th>
-              <th scope="col-2">Trạng thái</th>
-              <th scope="col-2"></th>
+              <th scope="col-2">Chức năng</th>
             </tr>
             </thead>
             <tbody>
@@ -81,9 +67,6 @@
               </td>
               <td>
                 {{contact.Message}}
-              </td>
-              <td>
-                {{contact.StatusId}}
               </td>
 
               <td class="text-right">
@@ -115,21 +98,19 @@
                       <div class="col-lg-12">
                         <div class="form-group">
                           <label class="form-control-label" for="FirstName">Nội dung phản hồi</label>
-                          <input type="text" id="FirstName"
-                                 class="form-control form-control-alternative" name="FirstName"
-                                 placeholder="Nội dung" [(ngModel)]="msgSendMail.ResponseMessage" >
+                          <textarea type="text" id="FirstName"
+                                    class="form-control form-control-alternative" name="FirstName"
+                                    placeholder="Nội dung" [(ngModel)]="msgSendMail.ResponseMessage"></textarea>
                         </div>
                       </div>
-
                     </div>
-
                   </form>
                 </div>
                 <div class="card-footer">
                   <div class="text-center">
-                    <button type="button" (click)="Send(msgSendMail)" class="btn btn-primary my-4" >Gửi mail</button>
+                    <button type="button" (click)="Send(msgSendMail)" class="btn btn-primary my-4" >Gửi phản hồi</button>
                     <button type="button" class="btn ml-auto btn-danger" data-dismiss="modal"
-                            (click)="c('Close click')">Close
+                            (click)="c('Close click')">Đóng
                     </button>
                   </div>
                 </div>
@@ -149,10 +130,6 @@
               <li class="page-item active">
                 <a class="page-link" href="javascript:void(0)">1</a>
               </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
               <li class="page-item">
                 <a class="page-link" href="javascript:void(0)">
                   <i class="fas fa-angle-right"></i>

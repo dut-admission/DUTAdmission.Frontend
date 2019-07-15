@@ -51,7 +51,7 @@
           </a>
         </li>
         <li class="nav-item d-none d-lg-block ml-lg-4"
-            *ngIf="(getPath()!=='/login') && !authenticationService.currentUserValue">
+            *ngIf="(getPath()!=='/login') && !currentUserValue">
           <a [routerLink]="['/login']" class="btn btn-neutral btn-icon" href="javascript:void(0)">
             <span class="btn-inner--icon">
               <i class="fa fa-user-circle mr-2"></i>
@@ -59,7 +59,7 @@
             <span class="nav-link-inner--text">Đăng nhập</span>
           </a>
         </li>
-        <li class="nav-item" ngbDropdown placement="bottom-right" *ngIf="authenticationService.currentUserValue">
+        <li class="nav-item" ngbDropdown placement="bottom-right" *ngIf="currentUserValue">
           <a class="nav-link pr-0" role="button" ngbDropdownToggle href="javascript:void(0)">
             <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">

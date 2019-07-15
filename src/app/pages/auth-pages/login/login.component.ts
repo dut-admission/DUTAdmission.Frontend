@@ -13,6 +13,8 @@ import {SharedService} from '../../../_core/shared.service';
 export class LoginComponent implements OnInit, OnDestroy {
   loginInfo: LoginInfo;
   remembered: boolean;
+  focus: boolean;
+  focus1: boolean;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (value['isStudent']) {
             this.router.navigate(['/home']);
           } else {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/user-profile']);
           }
         },
         error => {

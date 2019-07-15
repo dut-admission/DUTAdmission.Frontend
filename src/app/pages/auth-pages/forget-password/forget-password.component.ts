@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 })
 export class ForgetPasswordComponent implements OnInit {
   forgetPassword: ForgetPassword;
+  focus: boolean;
+  focus1: boolean;
 
   constructor(private authenticationService: AuthenticationService,
               private sharedService: SharedService) {
