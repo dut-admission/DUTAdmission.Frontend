@@ -141,7 +141,7 @@
                 {{doc.DocumentTypeName}}
               </td>
               <td>
-                <span class="badge badge-dot" *ngIf="doc.IsRequired; else NotRequired">
+                <span class="badge badge-dot" *ngIf="(doc.IsRequired === true); else NotRequired">
                     <i class="bg-danger"></i> Bắt buộc
                   </span>
                 <ng-template #NotRequired>

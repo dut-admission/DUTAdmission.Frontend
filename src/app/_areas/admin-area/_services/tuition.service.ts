@@ -1,16 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Tuition} from '../_entities/tuition';
 import {TuitionType} from '../_entities/tuition-type';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {API_URL} from '../../../_constants/api-url';
+import {httpOptions} from '../../../_constants/http-option';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TuitionService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  getTuitions() {
+  getTuitions(condition): Observable<any> {
+    return this.http.post<any>(API_URL.TUITION_LIST, condition, httpOptions);
+  }
+
+  getTuitionsLocal() {
     const tuitions: Tuition[] = [];
     for (let index = 0; index < 30; index++) {
       tuitions.push(

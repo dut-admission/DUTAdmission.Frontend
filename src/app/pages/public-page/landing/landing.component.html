@@ -19,14 +19,14 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-lg-6 text-center">
             <img src="./assets/img/brand/argon-white.png" style="width: 200px;" class="img-fluid">
-            <h1 class="lead text-white">Hệ thống nhập học điện tử</h1>
             <p class="lead text-white">Đại học Bách khoa - Đại học Đà Nẵng</p>
+            <h1 class="lead text-white">Hệ thống nhập học online</h1>
             <div class="btn-wrapper mt-5">
-              <a routerLink="/instruction" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0">
+              <a routerLink="/" class="btn btn-lg btn-white btn-icon mb-3 mb-sm-0">
                 <span class="btn-inner--icon"><i class="ni ni-hat-3"></i></span>
-                <span class="btn-inner--text">Hướng dẫn nhập học</span>
+                <span class="btn-inner--text">Bắt đầu nhập học</span>
               </a>
-              <a routerLink="/login" class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0" *ngIf="!authenticationService.currentUserValue">
+              <a routerLink="/login" class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0" *ngIf="!currentUserValue">
                 <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
                 <span class="btn-inner--text">
                     Đăng nhập</span>

@@ -10,6 +10,8 @@ import {SharedService} from '../../../_core/shared.service';
 })
 export class ContactFormComponent implements OnInit {
   contact: ContactMessage;
+  focus: boolean;
+  focus1: boolean;
 
   constructor(private contactService: ContactMessageService,
               private sharedService: SharedService

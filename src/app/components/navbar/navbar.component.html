@@ -20,10 +20,10 @@
         <a class="nav-link pr-0" role="button" ngbDropdownToggle href="javascript:void(0)">
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="{{authenticationService.currentUserValue.avatar}}">
+              <img alt="Image placeholder" src="{{currentUserValue.avatar}}">
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">{{authenticationService.currentUserValue.last_name + " " + authenticationService.currentUserValue.first_name}}</span>
+              <span class="mb-0 text-sm  font-weight-bold">{{currentUserValue.last_name + " " + currentUserValue.first_name}}</span>
             </div>
           </div>
         </a>
@@ -35,7 +35,7 @@
             <i class="ni ni-single-02"></i>
             <span>Thông tin tài khoản</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+          <a routerLinkActive="active" routerLink="/admin/setting" class="dropdown-item">
             <i class="ni ni-settings-gear-65"></i>
             <span>Cài đặt hệ thống</span>
           </a>
