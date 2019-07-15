@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd, NavigationStart} from '@angular/router';
 import {Location, PopStateEvent} from '@angular/common';
+import {AuthenticationService} from '../../_areas/auth-area/_services/authentication.service';
+import {User} from '../../_areas/auth-area/_entities/user';
 
 @Component({
   selector: 'app-public-navbar',
@@ -11,8 +13,11 @@ export class PublicNavbarComponent implements OnInit {
   public isCollapsed = true;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
-
-  constructor(public location: Location, private router: Router) {
+  public currentUserValue: User;
+  constructor(public location: Location,
+              private router: Router,
+              private authenticationService: AuthenticationService) {
+    this.currentUserValue = authenticationService.currentUserValue;
   }
 
   ngOnInit() {
@@ -53,5 +58,17 @@ export class PublicNavbarComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  getPath() {
+    return this.router.url;
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
+
+  getToken() {
+    return this.authenticationService.currentUserValue.access_token;
   }
 }

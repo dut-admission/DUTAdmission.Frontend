@@ -1,0 +1,96 @@
+<div class="px-4">
+  <div class="text-center mt-5">
+    <h3>
+      Phiếu kê khai thông tin sinh viên
+    </h3>
+  </div>
+  <hr class="my-4"/>
+  <div class="container" #admisionForm id="admisionForm">
+    <div class="row">
+      <div class="col-3 border-1"></div>
+      <div class="col-6 text-center">
+        <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
+        <h3 class="text-underline">Độc lập - Tự do - Hạnh phúc</h3>
+        <h2>PHIẾU KÊ KHAI THÔNG TIN SINH VIÊN<br/>KHÓA 2018</h2>
+      </div>
+    </div>
+    <h4 class="text-center">I. THÔNG TIN VỀ BẢN THÂN</h4>
+    <div class="row">
+      <div class="col-6">Họ và tên:</div>
+      <div class="col-6">Ngày sinh:</div>
+      <div class="col-6">Giới tính:</div>
+      <div class="col-6">Quốc tịch:</div>
+      <div class="col-6">Dân tộc:</div>
+      <div class="col-6">Tôn giáo:</div>
+      <div class="col-12">Nơi sinh:</div>
+      <div class="col-4">Số CMND:</div>
+      <div class="col-4">Ngày cấp:</div>
+      <div class="col-4">Nơi cấp:</div>
+      <div class="col-12">
+        Hộ khẩu thường trú:
+      </div>
+      <div class="col-12">
+        Nơi ở hiện tại:
+      </div>
+      <div class="col-6">
+        Điện thoại:
+      </div>
+      <div class="col-6">
+        Email:
+      </div>
+    </div>
+    <h4 class="text-center">II. THÔNG TIN VỀ GIA ĐÌNH</h4>
+    <div class="row">
+      <div class="col-12"><h4>1. Cha</h4></div>
+      <div class="col-6">Họ và tên:</div>
+      <div class="col-6">Năm sinh:</div>
+      <div class="col-6">Giới tính:</div>
+      <div class="col-6">Quốc tịch:</div>
+      <div class="col-6">Dân tộc:</div>
+      <div class="col-6">Tôn giáo:</div>
+      <div class="col-4">Số CMND:</div>
+      <div class="col-4">Ngày cấp:</div>
+      <div class="col-4">Nơi cấp:</div>
+      <div class="col-12">
+        Hộ khẩu thường trú:
+      </div>
+      <div class="col-6">
+        Nghề nghiệp:
+      </div>
+      <div class="col-6">
+        Nơi làm việc:
+      </div>
+      <div class="col-6">
+        Điện thoại:
+      </div>
+      <div class="col-6">
+        Email:
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12"><h4>n. Hoàn cảnh gia đình</h4></div>
+      <div class="col-12">-Thuộc đối tượng: </div>
+    </div>
+    <div class="row">
+      <div class="col-12"><p class="font-italic">Em xin cam đoan những lời khai trên là đúng sự thật. Nếu sai em xin chịu xử lý theo quy định hiện hành của Nhà trường.</p></div>
+    </div>
+    <div class="row pb-100">
+      <div class="col-6"><h4 class="text-center">Cam đoan của gia đình sinh viên</h4></div>
+      <div class="col-6 text-center">
+        <p class="font-italic">Đà Nẵng, ngày 20, tháng 03, năm 2019</p>
+        <h4>Sinh viên</h4>
+        <p class="font-italic">(Ký ghi rõ họ tên)</p>
+      </div>
+    </div>
+    <div class="row pb-150">
+      <div class="col-12"><h4 class="text-center">Xác nhận của chính quyền địa phương nơi sinh viên cư trú</h4></div>
+    </div>
+  </div>
+</div>
+<div class="mt-5 py-5 border-top text-center">
+  <div class="row justify-content-center">
+    <button class="btn btn-outline-primary" routerLink="/admission/docs">Danh sách file cần tải về</button>
+    <button class="btn btn-outline-primary" (click)="downloadPDF(admisionForm)">Tải xuống</button>
+
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="header pt-lg-8 d-flex align-items-center" style="min-height: 300px;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Cấu hình hệ thống</h3>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <h6 class="heading-small text-muted mb-4"></h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Tên trường đại học</label>
+                    <input type="text" id="input-first-name"
+                           class="form-control form-control-alternative"
+                           name="LastName" [(ngModel)]="settingSystem.university_name">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-last-name">Địa chỉ</label>
+                    <input type="text" id="input-last-name"
+                           class="form-control form-control-alternative"
+                           name="FirstName" [(ngModel)]="settingSystem.address">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="sex-selection">Số điện thoại</label>
+                    <input id="sex-selection" class="form-control form-control-alternative"
+                            name="SexSelection" [(ngModel)]="settingSystem.phone_number"/>
+
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="sex-selection">Fax</label>
+                    <input id="fax" class="form-control form-control-alternative"
+                            name="fax" [(ngModel)]="settingSystem.fax"/>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-place-of-birth">Summary</label>
+                    <textarea type="text" id="input-place-of-birth" name="Summary" cols="4"
+                              class="form-control form-control-alternative" [(ngModel)]="settingSystem.summary"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-username">Website</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" name="PhoneNumber" [(ngModel)]="settingSystem.website">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email">Email</label>
+                    <input type="email" id="input-email" class="form-control form-control-alternative" [(ngModel)]="settingSystem.email" name="Email">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4"/>
+            <button (click)="SaveProfile()" class="btn btn-primary text-center">Lưu lại</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

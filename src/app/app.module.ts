@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -15,6 +15,13 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import {PublicLayoutModule} from './layouts/public-layout/public-layout.module';
 import {HeadroomModule} from '@ctrl/ngx-headroom';
+import {HttpErrorInterceptor} from './_core/http-error.interceptor';
+import {ToastrModule} from 'ngx-toastr';
+import {NgxLoadingModule} from 'ngx-loading';
+import {JwtInterceptor} from './_core/jwt.interceptor';
+import { AddTuitionTypeComponent } from './pages/admin-pages/tuition-type/add-tuition-type/add-tuition-type.component';
+
+
 
 
 
@@ -28,15 +35,32 @@ import {HeadroomModule} from '@ctrl/ngx-headroom';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    PublicLayoutModule
+    PublicLayoutModule,
+    ToastrModule.forRoot(),
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    PublicLayoutComponent
+    PublicLayoutComponent,
+    AddTuitionTypeComponent,
+
+
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

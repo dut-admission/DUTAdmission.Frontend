@@ -13,6 +13,12 @@ import {InstructionComponent} from '../../pages/public-page/instruction/instruct
 import {ListOfNewsComponent} from '../../pages/public-page/news/list-of-news/list-of-news.component';
 import {NewsDetailComponent} from '../../pages/public-page/news/news-detail/news-detail.component';
 import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.component';
+import {NgxLoadingModule} from 'ngx-loading';
+import {AdmissionPageComponent} from '../../pages/public-page/admission-page/admission-page.component';
+import {AdmissionDocsComponent} from '../../pages/public-page/admission-page/admission-docs/admission-docs.component';
+import {AdmissionFormsComponent} from '../../pages/public-page/admission-page/admission-forms/admission-forms.component';
+import {TuitionComponent} from '../../pages/public-page/tuition/tuition.component';
+import {ContactFormComponent} from '../../pages/public-page/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,11 @@ import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.compon
     ListOfNewsComponent,
     NewsDetailComponent,
     AboutUsComponent,
+    AdmissionPageComponent,
+    TuitionComponent,
+    AdmissionDocsComponent,
+    AdmissionFormsComponent,
+    ContactFormComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +42,7 @@ import {AboutUsComponent} from '../../pages/public-page/about-us/about-us.compon
     FormsModule,
     NgbModule,
     HeadroomModule,
+    NgxLoadingModule,
     // NgbModule
   ],
   exports: [

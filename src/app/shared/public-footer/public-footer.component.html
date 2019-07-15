@@ -1,11 +1,11 @@
-<footer class="footer" [ngClass]="{'has-cards': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login'}">
+<footer class="footer">
   <div class="container">
     <hr>
     <div class="row" [ngClass]="{'my-md': getPath()!=='/user-profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/user-profile' || getPath()==='/register' || getPath()==='/login'}">
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="single-footer-widget">
           <h3>DUT ADMISSION</h3>
-          <p>There are many variations of passg of Lorem Ipsum available, but thmajority have suffered altem, </p>
+          <p>Website này phục vụ nhập học cho sinh viên trường Đại học Bách khoa, Đại học Đà Nẵng.</p>
           <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-neutral btn-icon-only btn-twitter btn-round btn-lg" ngbTooltip="Follow us">
             <i class="fa fa-twitter"></i>
           </a>
@@ -27,21 +27,20 @@
       <div class="col-lg-4 col-lg-4 col-md-6 col-sm-12">
         <div class="single-footer-widget">
           <h3>THÔNG TIN LIÊN LẠC</h3>
-          <a class="text" href="tel:555-555-1212"><i class="fa fa-phone"></i>555-555-1212</a>
-          <span><i class="fa fa-envelope"></i>info@example.com</span>
-          <span><i class="fa fa-globe"></i>www.educat.com</span>
-          <span><i class="fa fa-map-marker"></i>ur address goes here,street.</span>
+          <span><i class="fa fa-phone"></i>(+84.0236) 3842308</span>
+          <span><i class="fa fa-envelope"></i>tchc.dhbk@dut.udn.vn</span>
+          <span><i class="fa fa-globe"></i>http://dut.udn.vn</span>
+          <span><i class="fa fa-map-marker"></i>54 Nguyễn Lương Bằng, Quận Liên Chiểu, Thành phố Đà Nẵng</span>
         </div>
       </div>
       <div class="col-lg-4 col-lg-4 col-md-6 col-sm-12">
         <div class="single-footer-widget">
           <h3>LIÊN KẾT NHANH</h3>
           <ul class="footer-list">
-            <li><a class="text" routerLink="/home">Trang chủ</a></li>
-            <li><a class="text" href="#">Tin tức</a></li>
-            <li><a class="text" href="#">Hướng dẫn nhập học</a></li>
-            <li><a class="text" href="#">Giới thiệu</a></li>
-            <li><a class="text" href="#">Liên hệ</a></li>
+            <li><a class="text fast-link" routerLink="/home">Trang chủ</a></li>
+            <li><a class="text fast-link" href="/news">Tin tức</a></li>
+            <li><a class="text fast-link" href="/instruction">Hướng dẫn nhập học</a></li>
+            <li><a class="text fast-link" href="/about-us">Giới thiệu & Liên hệ</a></li>
           </ul>
         </div>
       </div>

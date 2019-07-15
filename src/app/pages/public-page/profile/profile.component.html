@@ -10,66 +10,866 @@
       <span></span>
       <span></span>
     </div>
-    <!-- SVG separator -->
-    <div class="separator separator-bottom separator-skew">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-      </svg>
-    </div>
   </section>
-  <section class="section">
-    <div class="container">
-      <div class="card card-profile shadow mt--300">
-        <div class="px-4">
-          <div class="row justify-content-center">
-            <div class="col-lg-3 order-lg-2">
-              <div class="card-profile-image">
-                <a href="javascript:void(0)">
-                  <img src="../../../../assets/img/theme/team-4-800x800.jpg" class="rounded-circle" alt=""/>
-                </a>
-              </div>
-            </div>
-            <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
-              <div class="card-profile-actions py-4 mt-lg-0">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Message</a>
-              </div>
-            </div>
-            <div class="col-lg-4 order-lg-1">
-              <div class="card-profile-stats d-flex justify-content-center">
-                <div>
-                  <span class="heading">22</span>
-                  <span class="description">Friends</span>
-                </div>
-                <div>
-                  <span class="heading">10</span>
-                  <span class="description">Photos</span>
-                </div>
-                <div>
-                  <span class="heading">89</span>
-                  <span class="description">Comments</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center mt-5">
-            <h3>Jessica Jones
-              <span class="font-weight-light">, 27</span>
-            </h3>
-            <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Bucharest, Romania</div>
-            <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-            <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
-          </div>
-          <div class="mt-5 py-5 border-top text-center">
+  <section class="section" *ngIf="profile">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow mt--300">
             <div class="row justify-content-center">
-              <div class="col-lg-9">
-                <p>An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
-                <a href="javascript:void(0)">Show more</a>
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="javascript:void(0)">
+                    <img src="{{profile.Avatar}}" class="rounded-circle">
+                  </a>
+                </div>
               </div>
+            </div>
+            <div class="card-header text-center border-0 pt-10 pt-md-6 pb-0 pb-md-4">
+            </div>
+            <div class="card-body pt-5 pt-md-4 mt-md-5 mt-3">
+              <div class="text-center">
+                <h3>
+                  {{profile.LastName + ' ' + profile.FirstName}}<span
+                  class="font-weight-light">, {{profile.PersonalInfo.DateOfBirth | date: 'dd/MM/yyyy'}}</span>
+                </h3>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i>{{profile.PersonalInfo.Email}}
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>Lớp {{profile.UniversityInfo.ClassName}}
+                  ,{{profile.UniversityInfo.ProgramName}}
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>{{profile.UniversityInfo.DepartmentName}}
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>{{profile.UniversityInfo.EnrollmentAreaName}}
+                  , {{profile.UniversityInfo.ElectionName}}
+                </div>
+                <hr class="my-4"/>
+                <button class="btn btn-success" (click)="openModalChangePassword(changePasswordModal)">Đổi mật khẩu
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="row justify-content-center mt--300">
+            <div class="col">
+              <ngb-tabset #t="ngbTabset" [justify]="'center'" class="custom-tab-content"
+                          type="pills" activeId="personal-info">
+                <ngb-tab id="personal-info">
+                  <ng-template ngbTabTitle>
+                    <i class="ni ni-cloud-upload-96 mr-2"></i> Thông tin cá nhân
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <form>
+                      <div class="pl-lg-4">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-first-name">Họ</label>
+                              <input type="text" id="input-first-name"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Họ" value="{{profile.LastName}}" disabled="disabled">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-last-name">Tên</label>
+                              <input type="text" id="input-last-name"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Tên" value="{{profile.FirstName}}" disabled="disabled">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="sex-selection">Giới tính</label>
+                              <select id="sex-selection" class="form-control form-control-alternative"
+                                      name="SexSelection" [(ngModel)]="profile.PersonalInfo.Sex">
+                                <option value="true">Nam</option>
+                                <option value="false">Nữ</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group" [ngClass]="{'focused':focus2===true}">
+                              <label class="form-control-label" for="date-of-birth">Ngày sinh</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input id="date-of-birth" name="Birthday" class="form-control datepicker"
+                                       placeholder="Select date"
+                                       ngbDatepicker [(ngModel)]="profile.PersonalInfo.DateOfBirth"
+                                       #d1="ngbDatepicker" (click)="d1.toggle()"
+                                       (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                       (select)="onDateSelection($event)" autocomplete="off"
+                                       [ngModelOptions]="{standalone: true}"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-place-of-birth">Nơi sinh</label>
+                              <input type="text" id="input-place-of-birth" name="PlaceOfBirth"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Nơi sinh" [(ngModel)]="profile.PersonalInfo.PlaceOfBirth">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="national-selection">Quốc tịch</label>
+                              <select class="form-control form-control-alternative" id="national-selection"
+                                      name="Nationality" [(ngModel)]="profile.PersonalInfo.NationalityId">
+                                <option *ngFor="let nationality of library.nationality_list"
+                                        [value]="nationality.id">{{nationality.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="EthnicId">Dân tộc</label>
+                              <select class="form-control form-control-alternative" id="EthnicId" name="EthnicId"
+                                      [(ngModel)]="profile.PersonalInfo.EthnicId">
+                                <option *ngFor="let ethnic of library.ethnic_list"
+                                        [value]="ethnic.id">{{ethnic.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="ReligionId">Tôn giáo</label>
+                              <select class="form-control form-control-alternative" id="ReligionId"
+                                      name="ReligionId"
+                                      [(ngModel)]="profile.PersonalInfo.ReligionId">
+                                <option *ngFor="let item of library.religion_list"
+                                        [value]="item.id">{{item.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="identity-number">Số chứng minh nhân
+                                dân</label>
+                              <input type="text" id="identity-number"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Số CMND" value="{{profile.IdentityNumber}}" disabled="disabled">
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="DateOfIssue">Ngày cấp</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="form-control datepicker" placeholder="Select date"
+                                       name="DateOfIssue"
+                                       id="DateOfIssue"
+                                       [(ngModel)]="profile.PersonalInfo.DateOfIssue" ngbDatepicker
+                                       #d2="ngbDatepicker" (click)="d2.toggle()"
+                                       (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                       (select)="onDateSelection($event)" autocomplete="off"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-place-of-issue">Nơi cấp</label>
+                              <input type="text" id="input-place-of-issue"
+                                     name="PlaceOfIssue"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Nơi cấp" [(ngModel)]="profile.PersonalInfo.PlaceOfIssue">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="CircumstanceTypeId">Hoàn cảnh gia đình</label>
+                              <select class="form-control form-control-alternative" name="CircumstanceTypeId"
+                                      id="CircumstanceTypeId" [(ngModel)]="profile.CircumstanceTypeId">
+                                <option *ngFor="let item of library.circumstance_type_list"
+                                        [value]="item.id">{{item.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-residence">Hộ khẩu thường trú</label>
+                              <input id="input-residence" class="form-control form-control-alternative"
+                                     placeholder="Hộ khẩu thường trú"
+                                     name="PermanentResidence"
+                                     type="text" [(ngModel)]="profile.PersonalInfo.PermanentResidence">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-address">Nơi ở hiện tại</label>
+                              <input id="input-address" class="form-control form-control-alternative"
+                                     placeholder="Nơi ở hiện tại" name="Address"
+                                     type="text" [(ngModel)]="profile.PersonalInfo.Address">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-phone-number">Số điện thoại</label>
+                              <input type="text" id="input-phone-number"
+                                     class="form-control form-control-alternative"
+                                     placeholder="Số điện thoại" name="PhoneNumber"
+                                     [(ngModel)]="profile.PersonalInfo.PhoneNumber">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-email">Email</label>
+                              <input type="text" id="input-email" class="form-control form-control-alternative"
+                                     placeholder="Email" [(ngModel)]="profile.PersonalInfo.Email" name="Email">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-high-school-name">Tên trường
+                                THPT</label>
+                              <input type="text" id="input-high-school-name"
+                                     class="form-control form-control-alternative" name="HighSchoolName"
+                                     placeholder="Tên trường THPT"
+                                     [(ngModel)]="profile.HightSchoolInfo.HightSchoolName">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="YouthJoining">Đã gia nhập Đoàn</label>
+                              <select class="form-control form-control-alternative" name="YouthJoining"
+                                      id="YouthJoining">
+                                <option value="true">Đã gia nhập</option>
+                                <option value="false">Chưa gia nhập</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row youth-info" *ngIf="profile.HightSchoolInfo.YouthGroupInfo">
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="YouthJoiningDate">Ngày vào Đoàn</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="form-control datepicker" placeholder="Select date"
+                                       name="YouthJoiningDate" id="YouthJoiningDate"
+                                       [(ngModel)]="profile.HightSchoolInfo.YouthGroupInfo.DateOfJoiningYouthGroup"
+                                       ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()"
+                                       (focus)="focus2=true" (blur)="focus2=false" type="text"
+                                       (select)="onDateSelection($event)" autocomplete="off"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-place-of-joining">Nơi vào
+                                Đoàn</label>
+                              <input type="text" id="input-place-of-joining"
+                                     class="form-control form-control-alternative" name="YouthJoiningPlace"
+                                     placeholder="Nơi vào Đoàn"
+                                     [(ngModel)]="profile.HightSchoolInfo.YouthGroupInfo.PlaceOfJoinYouthGroup">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-4"/>
+                      <button (click)="SaveProfile()" class="btn btn-primary">Lưu lại</button>
+                    </form>
+                  </ng-template>
+                </ngb-tab>
+                <ngb-tab id="family-info">
+                  <ng-template ngbTabTitle>
+                    <i class="ni ni-bell-55 mr-2"></i> Các thông tin khác
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <form>
+                      <div class="pl-lg-4">
+                        <div class="row">
+                          <div class="col-8">
+                            <h6 class="heading-small text-muted mb-4">Các thành viên gia đình</h6>
+                          </div>
+                          <div class="col-4">
+                            <button class="btn btn-primary mb-4 btn-add"
+                                    (click)="openModalForNewMember(newFamilyMember, null)"> Thêm
+                            </button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="table-responsive">
+                              <table class="table align-items-center table-bordered table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Họ và tên</th>
+                                  <th scope="col">Năm sinh</th>
+                                  <th scope="col">Số điện thoại</th>
+                                  <th scope="col">Địa chỉ</th>
+                                  <th scope="col">Chức năng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let member of profile.FamilyMembers">
+                                  <td>
+                                    <div class="media align-items-center">
+                                      <div class="media-body">
+                                        <span class="mb-0 text-sm">{{member.Name}}</span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    {{member.YearOfBirth}}
+                                  </td>
+                                  <td>
+                                    {{member.PhoneNumber}}
+                                  </td>
+                                  <td>
+                                    {{member.Address}}
+                                  </td>
+                                  <td class="text-center">
+                                    <div ngbDropdown placement="bottom-right">
+                                      <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                      </a>
+                                      <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           (click)="openModalForNewMember(newFamilyMember, member)">Chỉnh sửa</a>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           (click)="deleteFamilyMember(member.Id)">Xóa</a>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-template #newFamilyMember let-c="close" let-d="dismiss">
+                          <div class="modal-content">
+                            <div class="modal-body p-0">
+                              <div class="card bg-secondary shadow border-0">
+                                <div class="card-header bg-white pb-0">
+                                  <div class="text-muted text-center">
+                                    <h3>Thêm thành viên mới</h3>
+                                  </div>
+                                </div>
+                                <div class="card-body px-lg-5 py-lg-5">
+                                  <div class="text-center text-muted mb-4">
+                                    <small>Vui lòng điền đầy đủ các thông tin dưới đây</small>
+                                  </div>
+                                  <form role="form">
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberName">Họ và tên</label>
+                                          <input type="text" id="MemberName"
+                                                 class="form-control form-control-alternative"
+                                                 name="MemberName"
+                                                 placeholder="Họ và tên" [(ngModel)]="newMember.Name">
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberRelation">Quan
+                                            hệ</label>
+                                          <select class="form-control form-control-alternative"
+                                                  name="MemberRelation"
+                                                  id="MemberRelation" [(ngModel)]="newMember.RelationId">
+                                            <option *ngFor="let item of library.relation_type_list"
+                                                    [value]="item.id">{{item.name}}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberYearOfBirth">Năm
+                                            sinh</label>
+                                          <input type="number" id="MemberYearOfBirth"
+                                                 class="form-control form-control-alternative"
+                                                 name="MemberYearOfBirth"
+                                                 placeholder="Năm sinh" [(ngModel)]="newMember.YearOfBirth">
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberNationality">Quốc
+                                            tịch</label>
+                                          <select class="form-control form-control-alternative"
+                                                  name="MemberNationality"
+                                                  id="MemberNationality"
+                                                  [(ngModel)]="newMember.NationalityId">
+                                            <option *ngFor="let item of library.nationality_list"
+                                                    [value]="item.id">{{item.name}}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberEthnic">Dân tộc</label>
+                                          <select class="form-control form-control-alternative"
+                                                  name="MemberEthnic"
+                                                  id="MemberEthnic" [(ngModel)]="newMember.EthnicId">
+                                            <option *ngFor="let item of library.ethnic_list"
+                                                    [value]="item.id">{{item.name}}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberReligion">Tôn
+                                            giáo</label>
+                                          <select class="form-control form-control-alternative"
+                                                  name="MemberReligion"
+                                                  id="MemberReligion" [(ngModel)]="newMember.ReligionId">
+                                            <option *ngFor="let item of library.religion_list"
+                                                    [value]="item.id">{{item.name}}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberCareerType">Nghề
+                                            nghiệp</label>
+                                          <select class="form-control form-control-alternative"
+                                                  name="MemberCareerType"
+                                                  id="MemberCareerType" [(ngModel)]="newMember.CareerTypeId">
+                                            <option *ngFor="let item of library.career_type_list"
+                                                    [value]="item.id">{{item.name}}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberPhoneNumber">Số điện
+                                            thoại</label>
+                                          <input class="form-control form-control-alternative"
+                                                 name="MemberPhoneNumber" type="text"
+                                                 id="MemberPhoneNumber" [(ngModel)]="newMember.PhoneNumber"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-12">
+                                        <div class="form-group">
+                                          <label class="form-control-label" for="MemberAddress">Địa
+                                            chỉ</label>
+                                          <input class="form-control form-control-alternative"
+                                                 name="MemberAddress" type="text"
+                                                 id="MemberAddress" [(ngModel)]="newMember.Address"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="text-center">
+                                      <button type="button" class="btn btn-primary my-4"
+                                              (click)="saveFamilyMember()">Lưu lại
+                                      </button>
+                                      <button type="button" class="btn ml-auto btn-danger"
+                                              data-dismiss="modal"
+                                              (click)="c('Close click')">Đóng
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <hr class="my-4"/>
+                        <div class="row">
+                          <div class="col-8">
+                            <h6 class="heading-small text-muted mb-4">Kết quả học tập rèn luyện</h6>
+                          </div>
+                          <div class="col-4">
+                            <button class="btn btn-primary mb-4 btn-add"
+                                    (click)="openModalForNewResult(newLearningResultModal, null)">Thêm
+                            </button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="table-responsive">
+                              <table class="table align-items-center table-bordered table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Lớp</th>
+                                  <th scope="col">Xếp loại học lực</th>
+                                  <th scope="col">Xếp loại hạnh kiểm</th>
+                                  <th scope="col">Điểm trung bình</th>
+                                  <th scope="col">Chức năng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let result of profile.HightSchoolInfo.HighSchoolResults">
+                                  <td>
+                                    {{result.HightSchoolYear}}
+                                  </td>
+                                  <td>
+                                    {{result.LearningAbilityName}}
+                                  </td>
+                                  <td>
+                                    {{result.ConductTypeName}}
+                                  </td>
+                                  <td>
+                                    {{result.GPAScore}}
+                                  </td>
+                                  <td class="text-center">
+                                    <div ngbDropdown placement="bottom-right">
+                                      <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                      </a>
+                                      <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           (click)="openModalForNewResult(newLearningResultModal, result)">Chỉnh sửa</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" (click)="deleteHighSchoolResult(result.Id)">Xóa</a>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <ng-template #newLearningResultModal let-c="close" let-d="dismiss">
+                              <div class="modal-content">
+                                <div class="modal-body p-0">
+                                  <div class="card bg-secondary shadow border-0">
+                                    <div class="card-header bg-white pb-0">
+                                      <div class="text-muted text-center">
+                                        <h3>Thêm mới kết quả học tập</h3>
+                                      </div>
+                                    </div>
+                                    <div class="card-body px-lg-5 py-lg-5">
+                                      <div class="text-center text-muted mb-4">
+                                        <small>Vui lòng điền đầy đủ các thông tin dưới đây</small>
+                                      </div>
+                                      <form role="form">
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="HightSchoolYearId">Lớp</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="HightSchoolYearId" id="HightSchoolYearId"
+                                                      [(ngModel)]="newLearningResult.HightSchoolYearId">
+                                                <option *ngFor="let item of library.hight_school_year_list"
+                                                        [value]="item.id">{{item.year}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="LearningAbilityId">Xếp loại học
+                                                lực</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="LearningAbilityId"
+                                                      id="LearningAbilityId"
+                                                      [(ngModel)]="newLearningResult.LearningAbilityId">
+                                                <option *ngFor="let item of library.learning_ability_list"
+                                                        [value]="item.id">{{item.level}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="ConductTypeId">Xếp loại hạnh
+                                                kiểm</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="ConductTypeId" id="ConductTypeId"
+                                                      [(ngModel)]="newLearningResult.ConductTypeId">
+                                                <option *ngFor="let item of library.conduct_type_list"
+                                                        [value]="item.id">{{item.level}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="GPAScore">Điểm trung bình</label>
+                                              <input class="form-control form-control-alternative"
+                                                     name="GPAScore" type="text"
+                                                     id="GPAScore" [(ngModel)]="newLearningResult.GPAScore"/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="text-center">
+                                          <button type="button" class="btn btn-primary my-4"
+                                                  (click)="saveLearningResult()">Lưu lại
+                                          </button>
+                                          <button type="button" class="btn ml-auto btn-danger"
+                                                  data-dismiss="modal"
+                                                  (click)="c('Close click')">Đóng
+                                          </button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </div>
+                        <hr class="my-4"/>
+                        <!--
+                        <h6 class="heading-small text-muted mb-4">Năng khiếu</h6>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <div _ngcontent-c9="" class="custom-control custom-checkbox mb-3">
+                                <input _ngcontent-c9="" checked="" class="custom-control-input" id="customCheck2"
+                                       type="checkbox">
+                                <label _ngcontent-c9="" class="custom-control-label" for="customCheck2"><span
+                                  _ngcontent-c9="">Hát</span></label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-4"/>
+                        -->
+                        <div class="row">
+                          <div class="col-8">
+                            <h6 class="heading-small text-muted mb-4">Thành tựu</h6>
+                          </div>
+                          <div class="col-4">
+                            <button class="btn btn-primary mb-4 btn-add"
+                                    (click)="openModalForNewAchievement(newAchievementModal, null)">Thêm
+                            </button>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="table-responsive">
+                              <table class="table align-items-center table-bordered table-hover">
+                                <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Kỳ thi</th>
+                                  <th scope="col">Cấp</th>
+                                  <th scope="col">Giải thưởng</th>
+                                  <th scope="col">Mổ tả chi tiết</th>
+                                  <th scope="col">Chức năng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let achievement of profile.HightSchoolInfo.Achievements">
+                                  <td>
+                                    {{achievement.AchievementTypeName}}
+                                  </td>
+                                  <td>
+                                    {{achievement.AchievementLevelName}}
+                                  </td>
+                                  <td>
+                                    {{achievement.AchievementPrizeName}}
+                                  </td>
+                                  <td>
+                                    {{achievement.Description}}
+                                  </td>
+                                  <td class="text-center">
+                                    <div ngbDropdown placement="bottom-right">
+                                      <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                      </a>
+                                      <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                           (click)="openModalForNewAchievement(newAchievementModal, achievement)">Chỉnh sửa</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" (click)="deleteAchievement(achievement.Id)">Xóa</a>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <ng-template #newAchievementModal let-c="close" let-d="dismiss">
+                              <div class="modal-content">
+                                <div class="modal-body p-0">
+                                  <div class="card bg-secondary shadow border-0">
+                                    <div class="card-header bg-white pb-0">
+                                      <div class="text-muted text-center">
+                                        <h3>Thêm mới thành tựu</h3>
+                                      </div>
+                                    </div>
+                                    <div class="card-body px-lg-5 py-lg-5">
+                                      <div class="text-center text-muted mb-4">
+                                        <small>Vui lòng điền đầy đủ các thông tin dưới đây</small>
+                                      </div>
+                                      <form role="form">
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="AchievementTypeId">Kỳ thi</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="AchievementTypeId"
+                                                      id="AchievementTypeId"
+                                                      [(ngModel)]="newAchievement.AchievementTypeId">
+                                                <option *ngFor="let item of library.achievement_type_list"
+                                                        [value]="item.id">{{item.name}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="AchievementLevelId">Cấp</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="AchievementLevelId"
+                                                      id="AchievementLevelId"
+                                                      [(ngModel)]="newAchievement.AchievementLevelId">
+                                                <option *ngFor="let item of library.achievement_level_list"
+                                                        [value]="item.id">{{item.name}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="AchievementPrizeId">Giải
+                                                thưởng</label>
+                                              <select class="form-control form-control-alternative"
+                                                      name="AchievementPrizeId"
+                                                      id="AchievementPrizeId"
+                                                      [(ngModel)]="newAchievement.AchievementPrizeId">
+                                                <option *ngFor="let item of library.achievement_prize_list"
+                                                        [value]="item.id">{{item.name}}</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="form-group">
+                                              <label class="form-control-label" for="Description">Mô tả chi tiết</label>
+                                              <input class="form-control form-control-alternative"
+                                                     name="Description" type="text"
+                                                     id="Description" [(ngModel)]="newAchievement.Description"/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="text-center">
+                                          <button type="button" class="btn btn-primary my-4"
+                                                  (click)="saveAchievement()">Lưu lại
+                                          </button>
+                                          <button type="button" class="btn ml-auto btn-danger"
+                                                  data-dismiss="modal"
+                                                  (click)="c('Close click')">Đóng
+                                          </button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <ng-template #changePasswordModal let-c="close" let-d="dismiss">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-white pb-0">
+            <div class="text-muted text-center">
+              <h3>Đổi mật khẩu</h3>
+            </div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Vui lòng điền đầy đủ các thông tin dưới đây</small>
+            </div>
+            <form role="form">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="form-control-label" for="old_password">Mật khẩu cũ</label>
+                    <input class="form-control form-control-alternative"
+                           name="old_password" type="password"
+                           id="old_password" [(ngModel)]="password.old_password"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="form-control-label" for="new_password">Mật khẩu mới</label>
+                    <input class="form-control form-control-alternative"
+                           name="new_password" type="password"
+                           id="new_password" [(ngModel)]="password.new_password"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="form-control-label" for="renew_password">Nhập lại mật khẩu mới</label>
+                    <input class="form-control form-control-alternative"
+                           name="renew_password" type="password"
+                           id="renew_password" [(ngModel)]="password.renew_password"/>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary my-4"
+                        (click)="changePassword()">Đổi mật khẩu
+                </button>
+                <button type="button" class="btn ml-auto btn-danger"
+                        data-dismiss="modal"
+                        (click)="c('Close click')">Đóng
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </main>

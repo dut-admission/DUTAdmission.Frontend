@@ -17,52 +17,55 @@
         <div class="col px-0">
           <div class="row">
             <div class="col-lg-6">
-              <h1 class="display-3  text-white">A beautiful Design System
-                <span>completed with examples</span>
+              <h1 class="display-3  text-white">Hướng dẫn thực hiện nhập học
+                <span>Đại học Bách Khoa Đà Nẵng</span>
               </h1>
-              <p class="lead  text-white">The design system comes with four pre-built pages to help you get started faster. You can change the text and images and you're good to go.</p>
-              <div class="btn-wrapper">
-                <a href="https://demos.creative-tim.com/argon-design-system-angular/documentation/alerts?ref=adsa-landing-page" class="btn btn-info btn-icon mb-3 mb-sm-0">
-                  <span class="btn-inner--icon"><i class="fa fa-code"></i></span>
-                  <span class="btn-inner--text">Components</span>
-                </a>
-                <a href="https://www.creative-tim.com/product/argon-design-system-angular?ref=adsa-landing-page" class="btn btn-white btn-icon mb-3 mb-sm-0">
-                  <span class="btn-inner--icon"><i class="ni ni-cloud-download-95"></i></span>
-                  <span class="btn-inner--text">Download Angular</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
       <!-- SVG separator -->
       <div class="separator separator-bottom separator-skew">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+             xmlns="http://www.w3.org/2000/svg">
           <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
         </svg>
       </div>
     </section>
     <!-- 1st Hero Variation -->
   </div>
-  <section class="section section-lg pt-lg-0 mt--200">
+  <section class="section section-lg pt-lg-0 mt--150">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-12">
+        <div class="col-lg-12 text-center">
           <div class="row row-grid">
             <div class="col-lg-4">
               <div class="card card-lift--hover shadow border-0">
                 <div class="card-body py-5">
                   <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                    <i class="ni ni-check-bold"></i>
+                    <i class="ni ni-user-run"></i>
                   </div>
-                  <h6 class="text-primary text-uppercase">Download Argon</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most important components and features.</p>
-                  <div>
-                    <span class="badge badge-pill badge-primary">angular</span>
-                    <span class="badge badge-pill badge-primary">ng-bootstrap</span>
-                    <span class="badge badge-pill badge-primary">creative</span>
+                  <h6 class="text-primary text-uppercase">Cập nhật thông tin cá nhân</h6>
+                  <ul>
+                    <li><p class="description align-text-left">1. Thông tin cá nhân</p></li>
+                    <li><p class="description">2. Thông tin nhân thân</p></li>
+                    <li><p class="description">3. Kết quả học tập ở cấp 3</p></li>
+                    <li><p class="description">4. Các thành tích đã đạt được</p></li>
+                  </ul>
+                  <!--
+                  <div class="progress-wrapper">
+                    <div class="progress-info">
+                      <div class="progress-label">
+                        <span>Đã hoàn thành</span>
+                      </div>
+                      <div class="progress-percentage">
+                        <span>60%</span>
+                      </div>
+                    </div>
+                    <ngb-progressbar type="primary" [value]="60"></ngb-progressbar>
                   </div>
-                  <a href="javascript:void(0)" class="btn btn-primary mt-4">Learn more</a>
+                  -->
+                  <a routerLink="/profile" class="btn btn-primary mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
@@ -70,16 +73,16 @@
               <div class="card card-lift--hover shadow border-0">
                 <div class="card-body py-5">
                   <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
-                    <i class="ni ni-istanbul"></i>
+                    <i class="ni ni-check-bold"></i>
                   </div>
-                  <h6 class="text-success text-uppercase">Build Something</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most important components and features.</p>
-                  <div>
-                    <span class="badge badge-pill badge-success">business</span>
-                    <span class="badge badge-pill badge-success">vision</span>
-                    <span class="badge badge-pill badge-success">success</span>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-success mt-4">Learn more</a>
+                  <h6 class="text-success text-uppercase">Các loại giấy tờ liên quan</h6>
+                  <ul>
+                    <li><p class="description">1. Kiểm tra lại đơn nhập học</p></li>
+                    <li><p class="description">2. Tải xuống đơn nhập học</p></li>
+                    <li><p class="description">3. Tải lên các giấy tờ yêu cầu</p></li>
+                    <li><p class="description">4. Chờ phản hồi từ nhà trường</p></li>
+                  </ul>
+                  <a routerLink="/admission/form" class="btn btn-success mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
@@ -87,20 +90,24 @@
               <div class="card card-lift--hover shadow border-0">
                 <div class="card-body py-5">
                   <div class="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                    <i class="ni ni-planet"></i>
+                    <i class="ni ni-money-coins"></i>
                   </div>
-                  <h6 class="text-warning text-uppercase">Prepare Launch</h6>
-                  <p class="description mt-3">Argon is a great free UI package based on Angular that includes the most important components and features.</p>
-                  <div>
-                    <span class="badge badge-pill badge-warning">marketing</span>
-                    <span class="badge badge-pill badge-warning">product</span>
-                    <span class="badge badge-pill badge-warning">launch</span>
-                  </div>
-                  <a href="javascript:void(0)" class="btn btn-warning mt-4">Learn more</a>
+                  <h6 class="text-warning text-uppercase">Kiểm tra thông tin học phí.</h6>
+                  <ul>
+                    <li><p class="description">1. Kiểm tra thông tin học phí</p></li>
+                    <li><p class="description">2. Lấy mã chuyển khoản từ nhà trường</p></li>
+                    <li><p class="description">3. Thực hiện chuyển khoản tại ngân hàng gần nhất hoặc có thể đóng học phí
+                      ngay tại trường đại học</p></li>
+                  </ul>
+                  <a routerLink="/tuition" class="btn btn-warning mt-4">Đến trang</a>
                 </div>
               </div>
             </div>
           </div>
+          <!--          <p class="lead">Cause if you do, it can be yours for FREE. Hit the button below to navigate to Creative Tim where you can find the Design System in Angular. Start a new project or give an old Angular project a new look!</p>-->
+<!--          <div class="btn-wrapper btn-how-to-use">-->
+<!--            <a routerLink="/instruction" class="btn btn-primary mb-3 mb-sm-0">Hướng dẫn chi tiết</a>-->
+<!--          </div>-->
         </div>
       </div>
     </div>

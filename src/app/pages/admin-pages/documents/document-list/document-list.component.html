@@ -1,0 +1,238 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow border-0">
+            <div class="card-header">
+              <h4 class="card-title">Bộ lọc</h4>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Từ khóa</label>
+                      <input type="text" class="form-control" placeholder="Tên/Số CMND/SBD"
+                             [(ngModel)]="condition.Keyword" name="Keyword"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Loại giấy tờ</label>
+                      <select class="form-control" [(ngModel)]="condition.DocumentTypeId"
+                              name="DocumentTypeId">
+                        <option value="0">--</option>
+                        <option *ngFor="let type of documentTypes"
+                                [selected]="condition.DocumentTypeId === type.Id"
+                                value="{{type.Id}}">{{type.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Chương trình</label>
+                      <select class="form-control" (change)="ChangeProgram($event)" [(ngModel)]="condition.ProgramId"
+                              name="ProgramId">
+                        <option value="0">--</option>
+                        <option *ngFor="let program of educationProgramList"
+                                [selected]="condition.ProgramId === program.Id"
+                                value="{{program.Id}}">{{program.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Ngành</label>
+                      <select class="form-control" (change)="ChangeDepartment($event)"
+                              [(ngModel)]="condition.DepartmentId" name="DepartmentId">
+                        <option value="0">--</option>
+                        <option *ngFor="let department of departmentList"
+                                [selected]="condition.DepartmentId === department.Id"
+                                value="{{department.Id}}">{{department.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Lớp</label>
+                      <select class="form-control" name="ClassId" [(ngModel)]="condition.ClassId">
+                        <option value="0">--</option>
+                        <option *ngFor="let class of classList" value="{{class.Id}}"
+                                [selected]="condition.ClassId === class.Id">{{class.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Tình trạng</label>
+                      <select class="form-control" [(ngModel)]="condition.StatusId"
+                              name="DocumentTypeId">
+                        <option value="0">--</option>
+                        <option *ngFor="let status of statuses"
+                                [selected]="condition.StatusId === status.Id"
+                                value="{{status.Id}}">{{status.Name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8"></div>
+                  <div class="col-md-4 pl-1">
+                    <div class="form-group group-function">
+                      <button class="btn btn-md btn-primary btn-add" (click)="getDocuments()">Tìm kiếm</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Danh sách giấy tờ</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-bordered">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Tên sinh viên</th>
+              <th scope="col">Số CMND</th>
+              <th scope="col">Lớp</th>
+              <th scope="col">Tên loại giấy tờ</th>
+              <th scope="col">Yêu cầu</th>
+              <th scope="col">Tình trạng</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let student of studentDocs">
+            <tr *ngIf="student.DocumentInfoes">
+              <th scope="row" [rowSpan]="student.DocumentInfoes.length + 1">
+                <div class="media align-items-center">
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{student.LastName + ' ' + student.FirstName}}</span>
+                  </div>
+                </div>
+              </th>
+              <td [rowSpan]="student.DocumentInfoes.length + 1">
+                {{student.IdentityNumber}}
+              </td>
+              <td [rowSpan]="student.DocumentInfoes.length + 1">
+                {{student.ClassName}}
+              </td>
+            </tr>
+            <tr *ngFor="let doc of student.DocumentInfoes">
+              <td>
+                {{doc.DocumentTypeName}}
+              </td>
+              <td>
+                <span class="badge badge-dot" *ngIf="(doc.IsRequired === true); else NotRequired">
+                    <i class="bg-danger"></i> Bắt buộc
+                  </span>
+                <ng-template #NotRequired>
+                  <span class="badge badge-dot">
+                    <i class="bg-success"></i> Không bắt buộc
+                  </span>
+                </ng-template>
+              </td>
+              <td>
+                <select class="form-control" name="DocumentType">
+                  <option *ngFor="let status of statuses" value="{{status.Id}}" [selected]="status.Id === doc.StatusId">{{status.Name}}</option>
+                </select>
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="bottom-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="javascript:void(0)"
+                       (click)="onOpenPreviewModal(previewDocument, doc)">Xem tài liệu</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #previewDocument let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Xem trước tài liệu</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <iframe [src]="newDocument.Url | safe" width="100%" height="800"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #responseMessage let-c="close" let-d="dismiss">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-0">
+                  <div class="text-muted text-center">
+                    <h3>Phản hồi về tài liệu này</h3>
+                  </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                  <textarea class="form-control" [(ngModel)]="newDocument.ResponseMessage"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <button class="page-link" href="javascript:void(0)" tabindex="-1" (click)="previousPage()"
+                        [disabled]="condition.CurrentPage === 1"
+                        [class.pag-disable]="condition.CurrentPage === 1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </button>
+              </li>
+              <li class="page-item" [class.active]="condition.CurrentPage === index+1"
+                  *ngFor="let item of arrayOne(); let index = index ">
+                <button class="page-link" (click)="changePage(index+1)"
+                        [disabled]="condition.CurrentPage === index+1"
+                        [class.pag-active]="condition.CurrentPage === index+1">
+                  {{index + 1}}
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" (click)="nextPage()"
+                        [disabled]="condition.CurrentPage === totalPage"
+                        [class.pag-disable]="condition.CurrentPage === totalPage">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
